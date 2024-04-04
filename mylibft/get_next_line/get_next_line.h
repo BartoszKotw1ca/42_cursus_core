@@ -6,7 +6,7 @@
 /*   By: bkotwica <bkotwica@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 21:53:48 by bkotwica          #+#    #+#             */
-/*   Updated: 2024/04/03 17:00:26 by bkotwica         ###   ########.fr       */
+/*   Updated: 2024/04/04 07:46:08 by bkotwica         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,10 @@
 #  define BUFFER_SIZE 10
 # endif
 
-typedef struct s_list
+typedef struct s_gnl_list
 {
 	char			*str_buf;
-	struct s_list	*next;
+	struct s_gnl_list	*next;
 }					g_list;
 
 g_list	*find_last_node(g_list *list);
