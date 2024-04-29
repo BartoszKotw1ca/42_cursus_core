@@ -6,7 +6,7 @@
 /*   By: bkotwica <bkotwica@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 18:42:23 by bkotwica          #+#    #+#             */
-/*   Updated: 2024/04/29 09:47:31 by bkotwica         ###   ########.fr       */
+/*   Updated: 2024/04/29 14:43:15 by bkotwica         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,21 +48,20 @@ int	function(int arc, char **argv, int output, int infile)
 	status = fork();
 	if (status == 0)
 	{
-		dup2(fd[1], STDIN_FILENO);
+		dup2(infile, STDIN_FILENO);
+		dup2(fd[1], STDOUT_FILENO);
 		close(fd[0]);
 		close(fd[1]);
 		execve(com1[0], com1 + 1, NULL);
-		exit(0);
 	}
 	else
 	{
 		wait(NULL);
-		dup2(fd[0], STDOUT_FILENO);
+		dup2(fd[0], STDIN_FILENO);
+		dup2(output, STDOUT_FILENO);
 		close(fd[0]);
 		close(fd[1]);
-		wait(NULL);
 		execve(com2[0], com2 + 1, NULL);
-		exit(0);
 	}
 	return (0);
 }
@@ -72,8 +71,8 @@ int	main(int arc, char **argv)
 	int	output;
 	int	infile;
 
-	output = open(argv[4], O_WRONLY | O_CREAT);
-	infile = open(argv[1], O_RDWR | O_CREAT);
+	output = open(argv[4], O_CREAT | O_WRONLY | O_TRUNC, 0644);
+	infile = open(argv[1], O_RDONLY);
 	 if (arc == 5)
 		 function(arc, argv, output, infile);
 	(void) arc;
