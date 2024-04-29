@@ -6,7 +6,7 @@
 /*   By: bkotwica <bkotwica@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 18:42:23 by bkotwica          #+#    #+#             */
-/*   Updated: 2024/04/29 14:43:15 by bkotwica         ###   ########.fr       */
+/*   Updated: 2024/04/29 17:30:07 by bkotwica         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,16 +32,15 @@ char	*add_str(char *str1, char *str2)
 	return (res);
 }
 
-int	function(int arc, char **argv, int output, int infile)
+int	function(char **argv, int outfile, int infile)
 {
 	int	fd[2];
 	int	status;
 
-	(void) arc;
-	(void) argv;
 	char	**cmd1 = ft_split(argv[2], ' ');
 	char	**cmd2 = ft_split(argv[3], ' ');
 	char	*com1[] = {add_str("/usr/bin/", cmd1[0]), cmd1[0], cmd1[1], NULL};
+	// free(com1[1]);
 	char	*com2[] = {add_str("/usr/bin/", cmd2[0]), cmd2[0], cmd2[1], NULL};
 	if (pipe(fd) == -1)
 		return (1);
@@ -53,29 +52,33 @@ int	function(int arc, char **argv, int output, int infile)
 		close(fd[0]);
 		close(fd[1]);
 		execve(com1[0], com1 + 1, NULL);
+		// exit(0);
 	}
 	else
 	{
 		wait(NULL);
 		dup2(fd[0], STDIN_FILENO);
-		dup2(output, STDOUT_FILENO);
+		dup2(outfile, STDOUT_FILENO);
 		close(fd[0]);
 		close(fd[1]);
 		execve(com2[0], com2 + 1, NULL);
+		// free(com1[1]);
+		// free(com2[1]);
 	}
 	return (0);
 }
 
 int	main(int arc, char **argv)
 {
-	int	output;
+	int	outfile;
 	int	infile;
 
-	output = open(argv[4], O_CREAT | O_WRONLY | O_TRUNC, 0644);
+	printf("dafs");
+	outfile= open(argv[4], O_CREAT | O_WRONLY | O_TRUNC, 0644);
 	infile = open(argv[1], O_RDONLY);
 	 if (arc == 5)
-		 function(arc, argv, output, infile);
-	(void) arc;
-	(void) argv;
+		 function(argv, outfile, infile);
+	// close(outfile);
+	// close(infile);
 	return (0);
 }
