@@ -6,7 +6,7 @@
 /*   By: bkotwica <bkotwica@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 18:42:23 by bkotwica          #+#    #+#             */
-/*   Updated: 2024/04/23 17:50:22 by bkotwica         ###   ########.fr       */
+/*   Updated: 2024/04/29 09:47:31 by bkotwica         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,13 +32,11 @@ char	*add_str(char *str1, char *str2)
 	return (res);
 }
 
-int	function(int arc, char **argv)
+int	function(int arc, char **argv, int output, int infile)
 {
 	int	fd[2];
 	int	status;
-	int	output;
 
-	output = open(argv[4], O_WRONLY | O_CREAT);
 	(void) arc;
 	(void) argv;
 	char	**cmd1 = ft_split(argv[2], ' ');
@@ -50,26 +48,34 @@ int	function(int arc, char **argv)
 	status = fork();
 	if (status == 0)
 	{
-		dup2(fd[1], STDOUT_FILENO);
+		dup2(fd[1], STDIN_FILENO);
 		close(fd[0]);
 		close(fd[1]);
 		execve(com1[0], com1 + 1, NULL);
+		exit(0);
 	}
 	else
 	{
-		dup2(fd[0], STDIN_FILENO);
+		wait(NULL);
+		dup2(fd[0], STDOUT_FILENO);
 		close(fd[0]);
 		close(fd[1]);
 		wait(NULL);
 		execve(com2[0], com2 + 1, NULL);
+		exit(0);
 	}
 	return (0);
 }
 
 int	main(int arc, char **argv)
 {
+	int	output;
+	int	infile;
+
+	output = open(argv[4], O_WRONLY | O_CREAT);
+	infile = open(argv[1], O_RDWR | O_CREAT);
 	 if (arc == 5)
-		 function(arc, argv);
+		 function(arc, argv, output, infile);
 	(void) arc;
 	(void) argv;
 	return (0);
