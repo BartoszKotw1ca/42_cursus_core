@@ -6,7 +6,7 @@
 /*   By: bkotwica <bkotwica@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 18:42:23 by bkotwica          #+#    #+#             */
-/*   Updated: 2024/04/30 15:36:49 by bkotwica         ###   ########.fr       */
+/*   Updated: 2024/04/30 16:13:51 by bkotwica         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	process(t_struct node, int status)
 		close(node.fd[0]);
 		close(node.fd[1]);
 		if (execve(node.path1, node.cmd1, node.envp) == -1)
-			exit_message();
+			exit_message(node);
 	}
 	else
 	{
@@ -39,13 +39,17 @@ int	execute(t_struct node)
 
 	if (access(node.path1, F_OK) == -1
 		|| access(node.path2, F_OK) == -1)
-		exit_message();
+		exit_message(node);
 	if (pipe(node.fd) == -1)
 		return (1);
 	node.outfile = open(node.argv[4], O_CREAT | O_WRONLY | O_TRUNC, 0644);
 	node.infile = open(node.argv[1], O_RDONLY);
 	if (node.infile == -1)
-		exit_message();
+	{
+		close(node.outfile);
+		close(node.infile);
+		exit_message(node);
+	}
 	status = fork();
 	process(node, status);
 	waitpid(status, NULL, 0);
@@ -97,10 +101,6 @@ int	main(int argc, char **argv, char **envp)
 	if (argc == 5)
 		execute(node);
 	else
-		exit_message();
-	free_mallocs(node.cmd1);
-	free_mallocs(node.cmd2);
-	free(node.path1);
-	free(node.path2);
+		exit_message(node);
 	return (0);
 }
