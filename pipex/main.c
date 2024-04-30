@@ -6,7 +6,7 @@
 /*   By: bkotwica <bkotwica@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 18:42:23 by bkotwica          #+#    #+#             */
-/*   Updated: 2024/04/29 17:51:25 by bkotwica         ###   ########.fr       */
+/*   Updated: 2024/04/29 18:15:00 by bkotwica         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,11 +42,15 @@ void	free_mallocs(char **list)
 	free(list);
 }
 
-int	function(char **argv, int outfile, int infile)
+int	function(char **argv)
 {
 	int	fd[2];
 	int	status;
+	int	outfile;
+	int	infile;
 
+	outfile= open(argv[4], O_CREAT | O_WRONLY | O_TRUNC, 0644);
+	infile = open(argv[1], O_RDONLY);
 	char	**cmd1 = ft_split(argv[2], ' ');
 	char	**cmd2 = ft_split(argv[3], ' ');
 	char	*com1[] = {add_str("/usr/bin/", cmd1[0]), cmd1[0], cmd1[1], NULL};
@@ -57,19 +61,19 @@ int	function(char **argv, int outfile, int infile)
 	status = fork();
 	if (status == 0)
 	{
-		// exit(0);
 		dup2(infile, STDIN_FILENO);
 		dup2(fd[1], STDOUT_FILENO);
 		close(fd[0]);
 		close(fd[1]);
 		execve(com1[0], com1 + 1, NULL);
+		exit(0);
 		free_mallocs(cmd1);
 		free_mallocs(cmd2);
 		// exit(0);
 	}
 	else
 	{
-		exit(0);
+		// exit(0);
 		wait(NULL);
 		dup2(fd[0], STDIN_FILENO);
 		dup2(outfile, STDOUT_FILENO);
@@ -81,22 +85,14 @@ int	function(char **argv, int outfile, int infile)
 		// free(com1[1]);
 		// free(com2[1]);
 	}
+	close(outfile);
+	close(infile);
 	return (0);
 }
 
 int	main(int arc, char **argv)
 {
-	int	outfile;
-	int	infile;
-
-	(void) arc;
-	(void) argv;
-	printf("dafs");
-	outfile= open(argv[4], O_CREAT | O_WRONLY | O_TRUNC, 0644);
-	infile = open(argv[1], O_RDONLY);
-	 if (arc == 5)
-		 function(argv, outfile, infile);
-	close(outfile);
-	close(infile);
+	if (arc == 5)
+		function(argv);
 	return (0);
 }
