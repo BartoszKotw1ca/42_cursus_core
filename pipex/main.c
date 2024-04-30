@@ -6,7 +6,7 @@
 /*   By: bkotwica <bkotwica@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 18:42:23 by bkotwica          #+#    #+#             */
-/*   Updated: 2024/04/30 15:25:12 by bkotwica         ###   ########.fr       */
+/*   Updated: 2024/04/30 15:36:49 by bkotwica         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,11 +94,10 @@ int	main(int argc, char **argv, char **envp)
 	node.cmd2 = ft_split(node.argv[3], ' ');
 	node.path1 = find_path(node, node.cmd1[0]);
 	node.path2 = find_path(node, node.cmd2[0]);
-	printf("%s\n%s\n", node.path1, node.path2);
-	// if (argc == 5)
-	// 	execute(node);
-	// else
-	// 	exit_message();
+	if (argc == 5)
+		execute(node);
+	else
+		exit_message();
 	free_mallocs(node.cmd1);
 	free_mallocs(node.cmd2);
 	free(node.path1);

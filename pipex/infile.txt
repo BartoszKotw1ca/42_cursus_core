@@ -1,8 +1,0 @@
-main.c
-Makefile
-mylibft
-Obj
-pipex
-pipex.h
-Subject
-tmp.txt
