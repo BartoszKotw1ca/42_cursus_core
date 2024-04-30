@@ -6,7 +6,7 @@
 /*   By: bkotwica <bkotwica@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 15:18:22 by bkotwica          #+#    #+#             */
-/*   Updated: 2024/04/30 15:18:52 by bkotwica         ###   ########.fr       */
+/*   Updated: 2024/04/30 16:12:09 by bkotwica         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,10 +42,14 @@ void	free_mallocs(char **list)
 	free(list);
 }
 
-void	exit_message(void)
+void	exit_message(t_struct node)
 {
 	perror("Error\n\
 The argument should look like:\n\
 ./pipex <infile> \"command1\" \"command2\" <outfile> ");
+	free_mallocs(node.cmd1);
+	free_mallocs(node.cmd2);
+	free(node.path1);
+	free(node.path2);
 	exit(EXIT_FAILURE);
 }
