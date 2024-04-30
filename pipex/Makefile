@@ -1,7 +1,7 @@
-FLAGS = -Wall
+FLAGS = -Wall -Wextra -Werror
 NAME = pipex
 LIB = ./mylibft/mylibft.a
-SRC = main.c
+SRC = main.c utils.c
 OBJDIR = Obj/
 OBJ := $(SRC:%.c=$(OBJDIR)%.o)
 
