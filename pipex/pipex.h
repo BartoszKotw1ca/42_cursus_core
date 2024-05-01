@@ -6,7 +6,7 @@
 /*   By: bkotwica <bkotwica@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 18:41:16 by bkotwica          #+#    #+#             */
-/*   Updated: 2024/04/30 16:10:16 by bkotwica         ###   ########.fr       */
+/*   Updated: 2024/05/01 08:11:07 by bkotwica         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 # include <fcntl.h> // open, close
 # include <sys/types.h> // fork, wait
 # include <sys/wait.h> // wait, waitpid
+#include <stdbool.h>
 
 typedef struct s_struct
 {
@@ -39,7 +40,7 @@ typedef struct s_struct
 	int		fd[2];
 }			t_struct;
 
-void	exit_message(t_struct node);
+void	exit_message(t_struct node, bool a);
 void	free_mallocs(char **list);
 char	*add_str(char *str1, char *str2);
 

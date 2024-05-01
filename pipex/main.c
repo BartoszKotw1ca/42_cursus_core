@@ -6,7 +6,7 @@
 /*   By: bkotwica <bkotwica@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 18:42:23 by bkotwica          #+#    #+#             */
-/*   Updated: 2024/04/30 16:42:08 by bkotwica         ###   ########.fr       */
+/*   Updated: 2024/05/01 08:11:25 by bkotwica         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	process(t_struct node, int status)
 		close(node.fd[0]);
 		close(node.fd[1]);
 		if (execve(node.path1, node.cmd1, node.envp) == -1)
-			exit_message(node);
+			exit_message(node, 1);
 	}
 	else
 	{
@@ -39,7 +39,7 @@ int	execute(t_struct node)
 
 	if (access(node.path1, F_OK) == -1
 		|| access(node.path2, F_OK) == -1)
-		exit_message(node);
+		exit_message(node, 1);
 	if (pipe(node.fd) == -1)
 		return (1);
 	node.outfile = open(node.argv[4], O_CREAT | O_WRONLY | O_TRUNC, 0644);
@@ -48,7 +48,7 @@ int	execute(t_struct node)
 	{
 		close(node.outfile);
 		close(node.infile);
-		exit_message(node);
+		exit_message(node, 1);
 	}
 	status = fork();
 	process(node, status);
@@ -91,19 +91,21 @@ int	main(int argc, char **argv, char **envp)
 {
 	t_struct	node;
 
-	node.envp = envp;
 	node.argv = argv;
+	node.envp = envp;
 	node.argc = argc;
+	if (argc != 5)
+		exit_message(node, 0);
 	node.cmd1 = ft_split(node.argv[2], ' ');
 	node.cmd2 = ft_split(node.argv[3], ' ');
 	node.path1 = find_path(node, node.cmd1[0]);
 	node.path2 = find_path(node, node.cmd2[0]);
 	if (node.path1 == NULL || node.path2 == NULL)
-		exit_message(node);
+		exit_message(node, 1);
 	if (argc == 5)
 		execute(node);
 	else
-		exit_message(node);
+		exit_message(node, 1);
 	return (0);
 }
 
