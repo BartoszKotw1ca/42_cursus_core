@@ -1,6 +1,6 @@
 FLAGS = -Wall -Wextra -Werror -g -pthread
 NAME = philo
-SRC = main.c
+SRC = main.c ft_atoilong.c
 OBJDIR = Obj/
 OBJ := $(SRC:%.c=$(OBJDIR)%.o)
 
