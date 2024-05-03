@@ -6,7 +6,7 @@
 /*   By: bkotwica <bkotwica@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 19:29:21 by bkotwica          #+#    #+#             */
-/*   Updated: 2024/04/08 14:52:47 by bkotwica         ###   ########.fr       */
+/*   Updated: 2024/05/03 14:37:06 by bkotwica         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,17 +23,18 @@ long long int	ft_atoilong(const char *nptr)
 	sign = 1;
 	i = 0;
 	nr = (char *) nptr;
-	while (nr[i] == 32 || nr[i] == '\r' || nr[i] == '\n'
-		|| nr[i] == '\v' || nr[i] == '\f' || nr[i] == '\t')
-		i ++;
 	if (nr[i] == '-' || nr[i] == '+')
 	{
 		if (nr[i] == '-')
 			sign = -1;
 		i ++;
 	}
-	while (nr[i] <= '9' && nr[i] >= '0')
+	if (nr[i] == '0')
+		return (-1);
+	while (nr[i])
 	{
+		if (!(nr[i] <= '9' && nr[i] >= '0'))
+			return (-1);
 		num = num * 10 + nr[i] - '0';
 		i ++;
 	}
