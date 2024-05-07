@@ -6,7 +6,7 @@
 /*   By: bkotwica <bkotwica@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 18:41:16 by bkotwica          #+#    #+#             */
-/*   Updated: 2024/05/01 08:11:07 by bkotwica         ###   ########.fr       */
+/*   Updated: 2024/05/07 16:15:00 by bkotwica         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 # include <fcntl.h> // open, close
 # include <sys/types.h> // fork, wait
 # include <sys/wait.h> // wait, waitpid
-#include <stdbool.h>
+# include <stdbool.h>
 
 typedef struct s_struct
 {

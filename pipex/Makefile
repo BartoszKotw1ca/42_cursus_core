@@ -1,4 +1,4 @@
-FLAGS = -Wall -Wextra -Werror -g
+FLAGS = -Wall -Wextra -Werror
 NAME = pipex
 LIB = ./mylibft/mylibft.a
 SRC = main.c utils.c

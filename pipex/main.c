@@ -6,7 +6,7 @@
 /*   By: bkotwica <bkotwica@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 18:42:23 by bkotwica          #+#    #+#             */
-/*   Updated: 2024/05/01 08:11:25 by bkotwica         ###   ########.fr       */
+/*   Updated: 2024/05/07 16:15:26 by bkotwica         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,11 @@ int	main(int argc, char **argv, char **envp)
 	node.argc = argc;
 	if (argc != 5)
 		exit_message(node, 0);
+	if (ft_strlen(argv[1]) == 0
+		|| ft_strlen(argv[2]) == 0
+		|| ft_strlen(argv[3]) == 0
+		|| ft_strlen(argv[4]) == 0)
+		exit_message(node, 0);
 	node.cmd1 = ft_split(node.argv[2], ' ');
 	node.cmd2 = ft_split(node.argv[3], ' ');
 	node.path1 = find_path(node, node.cmd1[0]);
@@ -109,5 +114,4 @@ int	main(int argc, char **argv, char **envp)
 	return (0);
 }
 
-// valgrind --trace-children=yes ./pipex infile.txt
 // "grep test" "wc -l" outfile.txt
