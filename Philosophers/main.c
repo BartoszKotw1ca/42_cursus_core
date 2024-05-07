@@ -6,7 +6,7 @@
 /*   By: bkotwica <bkotwica@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 09:22:47 by bkotwica          #+#    #+#             */
-/*   Updated: 2024/05/03 16:33:00 by bkotwica         ###   ########.fr       */
+/*   Updated: 2024/05/07 09:16:37 by bkotwica         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,13 +101,13 @@ int	main(int argc, char **argv)
 	t_node		node;
 	int			*res;
 	pthread_t	*t;
+	int	i = 0;
 	if (argc != 6 && argc != 5)
 		exit_message();
 	if (check_data(argv + 1))
 		exit_message();
 	write_data(&node, argv, argc);
-	t = malloc(sizeof(int) * node.num_of_phil);
-	int	i = 0;
+	t = malloc(sizeof(pthread_t) * node.num_of_phil);
 	for (i = 0; i < 2; i ++)
 	{
 		int	*tmp = malloc(sizeof(int));
@@ -122,6 +122,7 @@ int	main(int argc, char **argv)
 		free(res);
 	}
 	i = 0;
+	free(t);
 	// while (i < node.num_of_phil)
 		// free(&t[i ++]);
 	printf("Num of phil: %d\nTime to die: %d\n\
