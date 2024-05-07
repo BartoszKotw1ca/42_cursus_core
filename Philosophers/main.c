@@ -6,7 +6,7 @@
 /*   By: bkotwica <bkotwica@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 09:22:47 by bkotwica          #+#    #+#             */
-/*   Updated: 2024/05/07 09:16:37 by bkotwica         ###   ########.fr       */
+/*   Updated: 2024/05/07 09:40:29 by bkotwica         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,40 +91,47 @@ void	write_data(t_node *node, char **argv, int argc)
 	node->time_to_eat = ft_atoilong(argv[3]);
 	node->time_to_sleep = ft_atoilong(argv[4]);
 	node->num_of_eat = 10;
-	// node->philo = malloc(sizeof(pthread_t) * node->num_of_phil);
 	if (argc == 6)
 		node->num_of_eat = ft_atoilong(argv[5]);
 }
 
-int	main(int argc, char **argv)
+void	add(t_node node)
 {
-	t_node		node;
 	int			*res;
+	int			i;
 	pthread_t	*t;
-	int	i = 0;
-	if (argc != 6 && argc != 5)
-		exit_message();
-	if (check_data(argv + 1))
-		exit_message();
-	write_data(&node, argv, argc);
+
 	t = malloc(sizeof(pthread_t) * node.num_of_phil);
-	for (i = 0; i < 2; i ++)
+	i = 0;
+	while (i < node.num_of_phil)
 	{
 		int	*tmp = malloc(sizeof(int));
 		*tmp = i;
 		if (pthread_create(&t[i], NULL, &routine, tmp) != 0)
 			return (0);
+		i ++;
 	}
-	for (i = 0; i < 2; i ++)
+	i = 0;
+	while (i < node.num_of_phil)
 	{
 		if (pthread_join(t[i], (void **) &res) != 0)
 			return (0);
 		free(res);
+		i ++;
 	}
-	i = 0;
 	free(t);
-	// while (i < node.num_of_phil)
-		// free(&t[i ++]);
+}
+
+int	main(int argc, char **argv)
+{
+	t_node		node;
+	int	i;
+
+	if (argc != 6 && argc != 5)
+		exit_message();
+	if (check_data(argv + 1))
+		exit_message();
+	write_data(&node, argv, argc);
 	printf("Num of phil: %d\nTime to die: %d\n\
 Time to eat: %d\nTime to sleep: %d\nNum of eat: %d\n"
 , node.num_of_phil, node.time_to_die, node.time_to_eat
