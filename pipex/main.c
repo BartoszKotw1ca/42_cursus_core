@@ -6,7 +6,7 @@
 /*   By: bkotwica <bkotwica@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 18:42:23 by bkotwica          #+#    #+#             */
-/*   Updated: 2024/05/07 16:15:26 by bkotwica         ###   ########.fr       */
+/*   Updated: 2024/05/07 19:42:14 by bkotwica         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,16 +39,22 @@ int	execute(t_struct node)
 
 	if (access(node.path1, F_OK) == -1
 		|| access(node.path2, F_OK) == -1)
-		exit_message(node, 1);
+	{
+		perror(node.path1);
+		return (-1);
+	}
 	if (pipe(node.fd) == -1)
 		return (1);
 	node.outfile = open(node.argv[4], O_CREAT | O_WRONLY | O_TRUNC, 0644);
 	node.infile = open(node.argv[1], O_RDONLY);
 	if (node.infile == -1)
 	{
-		close(node.outfile);
-		close(node.infile);
-		exit_message(node, 1);
+		// close(node.outfile);
+		node.infile = open(node.argv[1], O_CREAT, 0777);
+		printf("%d", node.infile);
+		perror("tak");
+		// close(node.infile);
+		// exit_message(node, 1);
 	}
 	status = fork();
 	process(node, status);
