@@ -6,7 +6,7 @@
 /*   By: bkotwica <bkotwica@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 19:29:21 by bkotwica          #+#    #+#             */
-/*   Updated: 2024/05/03 14:37:06 by bkotwica         ###   ########.fr       */
+/*   Updated: 2024/05/08 11:35:37 by bkotwica         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,9 @@
 long long int	ft_atoilong(const char *nptr)
 {
 	char			*nr;
-	long long		i;
-	long long		sign;
-	long long		num;
+	long long int	i;
+	long long int	sign;
+	long long int	num;
 
 	num = 0;
 	sign = 1;

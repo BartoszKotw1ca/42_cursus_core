@@ -6,7 +6,7 @@
 /*   By: bkotwica <bkotwica@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 09:22:47 by bkotwica          #+#    #+#             */
-/*   Updated: 2024/05/08 10:22:30 by bkotwica         ###   ########.fr       */
+/*   Updated: 2024/05/08 13:05:21 by bkotwica         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,14 +46,14 @@ time_to_sleep \
 
 int	check_data(char **argv)
 {
-	long int	tmp;
+	long long unsigned int	tmp;
 	int			i;
 
 	i = 0;
 	while (argv[i])
 	{
 		tmp = ft_atoilong(argv[i]);
-		if (tmp > 2147483647 || tmp < 1)
+		if (tmp > LONG_MAX || tmp < 1)
 			return (1);
 		i ++;
 	}
@@ -108,11 +108,13 @@ long long int	get_time(void)
 
 	if (gettimeofday(&tmp, NULL))
 		return (0);
-	return ((tmp.tv_sec * (u_int16_t) 1000) + (tmp.tv_usec / 1000));
+	return ((tmp.tv_sec * (long long int) 1000) + (tmp.tv_usec / 1000));
 }
 
 // struct timeval time; time.tv_sec - sec from Jan 1970
 // 1s = 1000 miliseconds
+// 1 mili = 1000 micro
+// usleep(micros);
 // data race mutex
 int	main(int argc, char **argv)
 {
@@ -126,19 +128,24 @@ int	main(int argc, char **argv)
 	if (check_data(argv + 1))
 		exit_message();
 	write_data(&node, argv, argc);
-	usleep(1000);
-	end = get_time();
 	pthread_mutex_init(&mutex, NULL);
 	if (create_join_threads(node))
 	{
 		free(node.philo);
 		exit (1);
 	}
+	node.i = 0;
+	while (node.i++ < 10)
+	{
+		usleep(1234000);
+		end = get_time();
+		printf("--%lld--\n", end - start);
+	}
 	tmp_fun(node);
 	free(node.fork);
 	pthread_mutex_destroy(&mutex);
-	printf("Num of phil: %lld\nTime to die: %lld\n\
-Time to eat: %lld\nTime to sleep: %lld\nNum of eat: %lld\n %lld"
-, node.num_of_phil, node.time_to_die, node.time_to_eat
-, node.time_to_sleep, node.num_of_eat, end - start);
+// 	printf("Num of phil: %lld\nTime to die: %lld\n\
+// Time to eat: %lld\nTime to sleep: %lld\nNum of eat: %lld\n %lld"
+// , node.num_of_phil, node.time_to_die, node.time_to_eat
+// , node.time_to_sleep, node.num_of_eat, end - start);
 }
