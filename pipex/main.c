@@ -6,7 +6,7 @@
 /*   By: bkotwica <bkotwica@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 18:42:23 by bkotwica          #+#    #+#             */
-/*   Updated: 2024/05/08 14:32:37 by bkotwica         ###   ########.fr       */
+/*   Updated: 2024/05/09 08:26:11 by bkotwica         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,10 @@ int	execute(t_struct node)
 		perror("ERROR");
 	status = fork();
 	process(node, status, node.infile);
-	waitpid(status, NULL, 0);
+	if (node.infile != -1)
+		waitpid(status, NULL, 0);
 	close(node.outfile);
+	close(node.infile);
 	return (0);
 }
 
@@ -102,7 +104,7 @@ int	main(int argc, char **argv, char **envp)
 		exit_message(node, 0);
 	node.cmd1 = ft_split(node.argv[2], ' ');
 	node.cmd2 = ft_split(node.argv[3], ' ');
-	printf("%s", node.cmd1[0]);
+	// printf("%s", node.cmd1[0]);
 	if (node.cmd1[0] != NULL)
 		node.path1 = find_path(node, node.cmd1[0]);
 	if (node.cmd2[0] != NULL)
