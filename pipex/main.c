@@ -6,15 +6,15 @@
 /*   By: bkotwica <bkotwica@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 18:42:23 by bkotwica          #+#    #+#             */
-/*   Updated: 2024/05/07 19:42:14 by bkotwica         ###   ########.fr       */
+/*   Updated: 2024/05/08 14:32:37 by bkotwica         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-void	process(t_struct node, int status)
+void	process(t_struct node, int status, int sta1)
 {
-	if (status == 0)
+	if (status == 0 && sta1 != -1 && node.path1)
 	{
 		dup2(node.infile, STDIN_FILENO);
 		dup2(node.fd[1], STDOUT_FILENO);
@@ -23,13 +23,15 @@ void	process(t_struct node, int status)
 		if (execve(node.path1, node.cmd1, node.envp) == -1)
 			exit_message(node, 1);
 	}
-	else
+	else if ((sta1 != -1 || status != 0) && node.path2)
 	{
 		dup2(node.fd[0], STDIN_FILENO);
 		dup2(node.outfile, STDOUT_FILENO);
 		close(node.fd[0]);
 		close(node.fd[1]);
-		execve(node.path2, node.cmd2, node.envp);
+		close(node.infile);
+		if (execve(node.path2, node.cmd2, node.envp) == -1)
+			exit_message(node, 1);
 	}
 }
 
@@ -37,30 +39,22 @@ int	execute(t_struct node)
 {
 	int	status;
 
-	if (access(node.path1, F_OK) == -1
-		|| access(node.path2, F_OK) == -1)
-	{
-		perror(node.path1);
-		return (-1);
-	}
+	// if (access(node.path1, F_OK) == -1
+	// // 	|| access(node.path2, F_OK) == -1)
+	// {
+	// 	perror(node.path1);
+	// 	return (-1);
+	// }
 	if (pipe(node.fd) == -1)
 		return (1);
 	node.outfile = open(node.argv[4], O_CREAT | O_WRONLY | O_TRUNC, 0644);
 	node.infile = open(node.argv[1], O_RDONLY);
 	if (node.infile == -1)
-	{
-		// close(node.outfile);
-		node.infile = open(node.argv[1], O_CREAT, 0777);
-		printf("%d", node.infile);
-		perror("tak");
-		// close(node.infile);
-		// exit_message(node, 1);
-	}
+		perror("ERROR");
 	status = fork();
-	process(node, status);
+	process(node, status, node.infile);
 	waitpid(status, NULL, 0);
 	close(node.outfile);
-	close(node.infile);
 	return (0);
 }
 
@@ -100,19 +94,21 @@ int	main(int argc, char **argv, char **envp)
 	node.argv = argv;
 	node.envp = envp;
 	node.argc = argc;
+	node.path1 = NULL;
+	node.path2 = NULL;
 	if (argc != 5)
 		exit_message(node, 0);
-	if (ft_strlen(argv[1]) == 0
-		|| ft_strlen(argv[2]) == 0
-		|| ft_strlen(argv[3]) == 0
-		|| ft_strlen(argv[4]) == 0)
+	if (ft_strlen(argv[4]) == 0)
 		exit_message(node, 0);
 	node.cmd1 = ft_split(node.argv[2], ' ');
 	node.cmd2 = ft_split(node.argv[3], ' ');
-	node.path1 = find_path(node, node.cmd1[0]);
-	node.path2 = find_path(node, node.cmd2[0]);
-	if (node.path1 == NULL || node.path2 == NULL)
-		exit_message(node, 1);
+	printf("%s", node.cmd1[0]);
+	if (node.cmd1[0] != NULL)
+		node.path1 = find_path(node, node.cmd1[0]);
+	if (node.cmd2[0] != NULL)
+		node.path2 = find_path(node, node.cmd2[0]);
+	// if (node.path1 == NULL || node.path2 == NULL)
+	// 	exit_message(node, 1);
 	if (argc == 5)
 		execute(node);
 	else
