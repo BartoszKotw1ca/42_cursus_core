@@ -6,7 +6,7 @@
 /*   By: bkotwica <bkotwica@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 18:42:23 by bkotwica          #+#    #+#             */
-/*   Updated: 2024/05/09 09:30:08 by bkotwica         ###   ########.fr       */
+/*   Updated: 2024/05/09 09:56:14 by bkotwica         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,15 @@
 
 void	process(t_struct node, int status, int sta1)
 {
-	if (status == 0 && sta1 != -1 && node.path1)
+	if (status == 0 && sta1 != -1)
 	{
 		dup2(node.infile, STDIN_FILENO);
 		dup2(node.fd[1], STDOUT_FILENO);
 		close(node.fd[0]);
 		close(node.fd[1]);
-		if (execve(node.path1, node.cmd1, node.envp) == -1)
-			exit_message(node, 1);
+		if (node.path1)
+			if (execve(node.path1, node.cmd1, node.envp) == -1)
+				exit_message(node, 1);
 	}
 	else if ((sta1 != -1 || status != 0) && node.path2)
 	{
