@@ -6,7 +6,7 @@
 /*   By: bkotwica <bkotwica@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 18:42:23 by bkotwica          #+#    #+#             */
-/*   Updated: 2024/05/09 08:26:11 by bkotwica         ###   ########.fr       */
+/*   Updated: 2024/05/09 09:30:08 by bkotwica         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,12 +39,6 @@ int	execute(t_struct node)
 {
 	int	status;
 
-	// if (access(node.path1, F_OK) == -1
-	// // 	|| access(node.path2, F_OK) == -1)
-	// {
-	// 	perror(node.path1);
-	// 	return (-1);
-	// }
 	if (pipe(node.fd) == -1)
 		return (1);
 	node.outfile = open(node.argv[4], O_CREAT | O_WRONLY | O_TRUNC, 0644);
@@ -53,8 +47,7 @@ int	execute(t_struct node)
 		perror("ERROR");
 	status = fork();
 	process(node, status, node.infile);
-	if (node.infile != -1)
-		waitpid(status, NULL, 0);
+	waitpid(status, NULL, 0);
 	close(node.outfile);
 	close(node.infile);
 	return (0);
@@ -104,13 +97,10 @@ int	main(int argc, char **argv, char **envp)
 		exit_message(node, 0);
 	node.cmd1 = ft_split(node.argv[2], ' ');
 	node.cmd2 = ft_split(node.argv[3], ' ');
-	// printf("%s", node.cmd1[0]);
 	if (node.cmd1[0] != NULL)
 		node.path1 = find_path(node, node.cmd1[0]);
 	if (node.cmd2[0] != NULL)
 		node.path2 = find_path(node, node.cmd2[0]);
-	// if (node.path1 == NULL || node.path2 == NULL)
-	// 	exit_message(node, 1);
 	if (argc == 5)
 		execute(node);
 	else
@@ -119,3 +109,8 @@ int	main(int argc, char **argv, char **envp)
 }
 
 // "grep test" "wc -l" outfile.txt
+// function execve give an 0 0 to outfile when
+// ./pipex "infile" "" "wc -l" "outfile"
+// ➜  pipex git:(main) ✗ cat outfile  
+// 0
+// 0
