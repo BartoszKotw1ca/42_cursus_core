@@ -6,7 +6,7 @@
 /*   By: bkotwica <bkotwica@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 18:42:23 by bkotwica          #+#    #+#             */
-/*   Updated: 2024/05/09 11:53:24 by bkotwica         ###   ########.fr       */
+/*   Updated: 2024/05/10 13:27:36 by bkotwica         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,16 +102,12 @@ int	main(int argc, char **argv, char **envp)
 		node.path1 = find_path(node, node.cmd1[0]);
 	if (node.cmd2[0] != NULL)
 		node.path2 = find_path(node, node.cmd2[0]);
+	if (node.cmd1[0] == NULL || node.cmd2[0] == NULL
+		|| node.path1 == NULL || node.path2 == NULL)
+		perror("Error");
 	if (argc == 5)
 		execute(node);
 	else
 		exit_message(node, 1);
 	return (0);
 }
-
-// "grep test" "wc -l" outfile.txt
-// function execve give an 0 0 to outfile when
-// ./pipex "infile" "" "wc -l" "outfile"
-// ➜  pipex git:(main) ✗ cat outfile  
-// 0
-// 0
