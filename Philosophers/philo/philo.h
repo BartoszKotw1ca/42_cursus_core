@@ -6,7 +6,7 @@
 /*   By: bkotwica <bkotwica@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 09:18:43 by bkotwica          #+#    #+#             */
-/*   Updated: 2024/05/08 10:19:00 by bkotwica         ###   ########.fr       */
+/*   Updated: 2024/05/13 10:44:24 by bkotwica         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,16 +25,17 @@ long long int	ft_atoilong(const char *nptr);
 
 typedef struct s_node
 {
-	long long int	num_of_phil;
-	long long int	time_to_die;
-	long long int	time_to_sleep;
-	long long int	time_to_eat;
-	long long int	num_of_eat;
-	long long int	*fork;
-	long long int	i;
-	pthread_t		*philo;
-	int				meals_counter;
-	long long int		last_food;	
+	long int	num_of_phil;
+	long int	time_to_die;
+	long int	time_to_sleep;
+	long int	time_to_eat;
+	long int	num_of_eat;
+	long int	*fork;
+	long int	i;
+	pthread_t	*philo;
+	long int	meals_counter;
+	long int	last_food;
+	long int	start_time;
 }			t_node;
 
 void	tmp_fun(t_node node);
