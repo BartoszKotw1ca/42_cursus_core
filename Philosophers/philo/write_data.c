@@ -1,0 +1,33 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   write_data.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: bkotwica <bkotwica@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/05/14 11:41:30 by bkotwica          #+#    #+#             */
+/*   Updated: 2024/05/14 13:04:24 by bkotwica         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "philo.h"
+
+void	write_data(t_node *node, char **argv, int argc)
+{
+	node->num_of_phil = ft_atoilong(argv[1]);
+	node->time_to_die = ft_atoilong(argv[2]) * 1000;
+	node->time_to_eat = ft_atoilong(argv[3]) * 1000;
+	node->time_to_sleep = ft_atoilong(argv[4]) * 1000;
+	node->forks = malloc(sizeof(pthread_mutex_t) * node->num_of_phil);
+	node->philo = malloc(sizeof(pthread_t) * node->num_of_phil);
+	node->meals_counter = malloc(sizeof(long int) * node->num_of_phil);
+	node->last_food = malloc(sizeof(long int) * node->num_of_phil);
+	node->num_of_eat = -1;
+	if (argc == 6)
+		node->num_of_eat = ft_atoilong(argv[5]);
+	else
+		node->num_of_eat = -1;
+	pthread_mutex_init(&node->print_mutex, NULL);
+	while (node->i++ < node->num_of_phil)
+		pthread_mutex_init(&node->forks[node->i], NULL);
+}
