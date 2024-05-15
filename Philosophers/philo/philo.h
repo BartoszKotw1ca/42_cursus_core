@@ -6,7 +6,7 @@
 /*   By: bkotwica <bkotwica@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 09:18:43 by bkotwica          #+#    #+#             */
-/*   Updated: 2024/05/14 13:20:18 by bkotwica         ###   ########.fr       */
+/*   Updated: 2024/05/15 09:40:44 by bkotwica         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void			tmp_fun(t_node node);
 long long int	get_time(void);
 void			exit_message(const char *s);
 void			free_data(t_node *node);
-
+void			print_status(t_node *node, int id, const char *status);
 // Write_data
 void			write_data(t_node *node, char **argv, int argc);
 
@@ -54,8 +54,8 @@ int				check_data(char **argv, int argc);
 long long int	ft_atoilong(const char *nptr);
 
 // create_philos
-void	create_philos(t_node *node);
+void			create_philos(t_node *node);
 
 // philo_routine
-void	*philo_routine(void *arg);
+void			*philo_routine(void *arg);
 #endif

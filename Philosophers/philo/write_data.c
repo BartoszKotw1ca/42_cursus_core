@@ -6,7 +6,7 @@
 /*   By: bkotwica <bkotwica@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 11:41:30 by bkotwica          #+#    #+#             */
-/*   Updated: 2024/05/14 13:04:24 by bkotwica         ###   ########.fr       */
+/*   Updated: 2024/05/15 09:51:03 by bkotwica         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ void	write_data(t_node *node, char **argv, int argc)
 	node->philo = malloc(sizeof(pthread_t) * node->num_of_phil);
 	node->meals_counter = malloc(sizeof(long int) * node->num_of_phil);
 	node->last_food = malloc(sizeof(long int) * node->num_of_phil);
+	if (!node->forks || !node->philo || !node->meals_counter || !node->last_food)
+		exit(0);
 	node->num_of_eat = -1;
 	if (argc == 6)
 		node->num_of_eat = ft_atoilong(argv[5]);
