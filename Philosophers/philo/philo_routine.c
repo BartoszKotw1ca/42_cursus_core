@@ -6,7 +6,7 @@
 /*   By: bkotwica <bkotwica@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 13:19:39 by bkotwica          #+#    #+#             */
-/*   Updated: 2024/05/15 11:05:25 by bkotwica         ###   ########.fr       */
+/*   Updated: 2024/05/20 12:25:32 by bkotwica         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,8 +56,11 @@ void	*philo_routine(void *arg)
 		eating(node);
 		print_status(node, node->id, "is thinking");
 		usleep(node->time_to_sleep);
+		printf("%ld", node->time_to_sleep);
 		print_status(node, node->id, "is sleeping");
 		usleep(node->time_to_sleep);
+		printf("%ld", node->time_to_sleep);
+		// exit(0);
 	}
 	return (NULL);
 }
