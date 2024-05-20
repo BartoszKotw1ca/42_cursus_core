@@ -6,7 +6,7 @@
 /*   By: bkotwica <bkotwica@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 11:41:30 by bkotwica          #+#    #+#             */
-/*   Updated: 2024/05/15 09:51:03 by bkotwica         ###   ########.fr       */
+/*   Updated: 2024/05/20 15:24:15 by bkotwica         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ void	write_data(t_node *node, char **argv, int argc)
 	else
 		node->num_of_eat = -1;
 	pthread_mutex_init(&node->print_mutex, NULL);
-	while (node->i++ < node->num_of_phil)
-		pthread_mutex_init(&node->forks[node->i], NULL);
+	node->i = 0;
+	while (node->i < node->num_of_phil)
+		pthread_mutex_init(&node->forks[node->i ++], NULL);
 }

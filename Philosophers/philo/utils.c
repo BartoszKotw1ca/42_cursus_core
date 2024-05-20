@@ -6,7 +6,7 @@
 /*   By: bkotwica <bkotwica@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 09:30:24 by bkotwica          #+#    #+#             */
-/*   Updated: 2024/05/14 13:07:03 by bkotwica         ###   ########.fr       */
+/*   Updated: 2024/05/20 15:04:48 by bkotwica         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,11 +41,10 @@ void	exit_message(const char *s)
 
 void	free_data(t_node *node)
 {
-	node->i = -1;
-	while (node->i++ < node->num_of_phil)
-		pthread_mutex_destroy(&node->forks[node->i]);
+	node->i = 0;
+	while (node->i < node->num_of_phil)
+		pthread_mutex_destroy(&node->forks[node->i ++]);
 	pthread_mutex_destroy(&node->print_mutex);
-	node->i = -1;
 	free(node->forks);
 	free(node->philo);
 	free(node->last_food);
@@ -55,6 +54,6 @@ void	free_data(t_node *node)
 void	print_status(t_node *node, int id, const char *status)
 {
 	pthread_mutex_lock(&node->print_mutex);
-	printf("%lld %d %s\n", get_time() - node->start_time, id + 1, status);
+	printf("%lld %d %s\n", get_time() - node->start_time, id, status);
 	pthread_mutex_unlock(&node->print_mutex);
 }
