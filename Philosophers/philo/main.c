@@ -6,7 +6,7 @@
 /*   By: bkotwica <bkotwica@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 09:22:47 by bkotwica          #+#    #+#             */
-/*   Updated: 2024/05/14 13:19:54 by bkotwica         ###   ########.fr       */
+/*   Updated: 2024/05/20 12:36:10 by bkotwica         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,4 @@ int	main(int argc, char **argv)
 	node.start_time = get_time();
 	create_philos(&node);
 	free_data(&node);
-// 	printf("Num of phil: %ld\nTime to die: %ld\n\
-// Time to eat: %ld\nTime to sleep: %ld\nNum of eat: %ld\n"
-// , node.num_of_phil, node.time_to_die, node.time_to_eat
-// , node.time_to_sleep, node.num_of_eat);
 }
