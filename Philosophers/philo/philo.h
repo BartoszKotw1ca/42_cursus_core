@@ -6,7 +6,7 @@
 /*   By: bkotwica <bkotwica@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 09:18:43 by bkotwica          #+#    #+#             */
-/*   Updated: 2024/05/15 09:40:44 by bkotwica         ###   ########.fr       */
+/*   Updated: 2024/06/25 18:37:34 by bkotwica         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ typedef struct s_node
 	pthread_mutex_t	*forks;
 	pthread_t		*philo;
 	pthread_mutex_t	print_mutex;
+	int				died;
 }			t_node;
 
 // Utils
