@@ -6,7 +6,7 @@
 /*   By: bkotwica <bkotwica@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 13:18:29 by bkotwica          #+#    #+#             */
-/*   Updated: 2024/06/25 18:35:59 by bkotwica         ###   ########.fr       */
+/*   Updated: 2024/06/26 16:11:19 by bkotwica         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	create_philos(t_node *node)
 		phil_nodes[node->i] = malloc(sizeof(t_node));
 		*phil_nodes[node->i] = *node;
 		phil_nodes[node->i]->id = node->i + 1;
-		phil_nodes[node->i]->died = 0;
+		phil_nodes[node->i]->dead = node->dead;
 		pthread_create(&node->philo[node->i], NULL,
 			philo_routine, phil_nodes[node->i]);
 		node->i ++;

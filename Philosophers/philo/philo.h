@@ -6,7 +6,7 @@
 /*   By: bkotwica <bkotwica@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 09:18:43 by bkotwica          #+#    #+#             */
-/*   Updated: 2024/06/25 18:37:34 by bkotwica         ###   ########.fr       */
+/*   Updated: 2024/06/26 14:54:58 by bkotwica         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,14 @@
 # include <semaphore.h>
 # include <sys/time.h>
 # include <limits.h>
+
+#define RESET   "\033[0m"
+#define RED     "\033[31m"
+#define GREEN   "\033[32m"
+#define YELLOW  "\033[33m"
+#define BLUE    "\033[34m"
+#define MAGENTA "\033[35m"
+#define CYAN    "\033[36m"
 
 typedef struct s_node
 {
@@ -36,7 +44,8 @@ typedef struct s_node
 	pthread_mutex_t	*forks;
 	pthread_t		*philo;
 	pthread_mutex_t	print_mutex;
-	int				died;
+	pthread_mutex_t	*dead;
+	int				dead1;
 }			t_node;
 
 // Utils
@@ -44,7 +53,7 @@ void			tmp_fun(t_node node);
 long long int	get_time(void);
 void			exit_message(const char *s);
 void			free_data(t_node *node);
-void			print_status(t_node *node, int id, const char *status);
+void			print_status(t_node *node, int id, const char *status, char *color);
 // Write_data
 void			write_data(t_node *node, char **argv, int argc);
 
