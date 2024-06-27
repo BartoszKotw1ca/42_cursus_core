@@ -6,7 +6,7 @@
 /*   By: bkotwica <bkotwica@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 09:18:43 by bkotwica          #+#    #+#             */
-/*   Updated: 2024/06/26 14:54:58 by bkotwica         ###   ########.fr       */
+/*   Updated: 2024/06/27 15:16:26 by bkotwica         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ typedef struct s_node
 	pthread_mutex_t	print_mutex;
 	pthread_mutex_t	*dead;
 	int				dead1;
+	pthread_mutex_t	*check_mutex;
 }			t_node;
 
 // Utils
@@ -68,4 +69,7 @@ void			create_philos(t_node *node);
 
 // philo_routine
 void			*philo_routine(void *arg);
+
+void	for_one_phil(t_node *node);
+
 #endif

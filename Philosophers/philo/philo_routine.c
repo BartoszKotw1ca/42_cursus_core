@@ -6,7 +6,7 @@
 /*   By: bkotwica <bkotwica@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 13:19:39 by bkotwica          #+#    #+#             */
-/*   Updated: 2024/06/26 16:51:43 by bkotwica         ###   ########.fr       */
+/*   Updated: 2024/06/27 15:03:41 by bkotwica         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,9 @@ int	check_if_die(t_node *node)
 	long int	curr_time;
 
 	curr_time = get_time();
-	if ((curr_time - node->last_food[node->id - 1]) * 1000 > node->time_to_die)
+	// printf("id: %ld czas: %ld %ld %ld %ld\n", node->id, (curr_time - node->last_food[node->id - 1]), node->time_to_die, node->last_food[node->id - 1], curr_time);
+	// printf("czas: %ld\n %ld\n", (curr_time - node->last_food[node->id - 1]), node->time_to_die);
+	if ((curr_time - node->last_food[node->id - 1]) > node->time_to_die)
 	{
 		print_status(node, node->id, "died", RED);
 		pthread_mutex_unlock(&node->forks[node->id - 1]);
@@ -34,35 +36,43 @@ int	eating(t_node *node)
 {
 	int	left_fork;
 	int	right_fork;
+	int	id;
+
+	id = node->id - 1;
+	// printf("%d", id);
+	left_fork = id;
+	right_fork = (id % node->num_of_phil) - 1;
+	if (right_fork < 0)
+		right_fork = id + 1;
+	if (left_fork == 0)
+		right_fork = node->num_of_phil - 1;
+	// printf("id: %d, l: %d, p: %d\n", id, left_fork, right_fork);
 	// printf("%ld\n", node->id);
 	if (check_if_die(node) == 0)
 		return (0);
 	else if (node->id % 2 == 0)
 	{
-		left_fork = (node->id + 1) % node->num_of_phil - 1;
-		right_fork = node->id - 1;
-		printf("w if: %ld %ld\n", (node->id + 1) % node->num_of_phil - 1, node->id - 1);
-		// pthread_mutex_lock(&node->forks[(node->id + 1) % node->num_of_phil] - 1);
-		pthread_mutex_lock(&node->forks[left_fork]);
-		print_status(node, node->id, "has taken a fork", CYAN);
+		// printf("w if: %d %d %ld\n", left_fork, right_fork, node->id);
+		usleep(50);
 		pthread_mutex_lock(&node->forks[right_fork]);
+		print_status(node, node->id, "has taken a fork", CYAN);
+		pthread_mutex_lock(&node->forks[left_fork]);
 		print_status(node, node->id, "has taken a fork", CYAN);
 	}
 	else
 	{
-		left_fork = node->id;
-		right_fork = (node->id + 1) % node->num_of_phil;
-		printf("w else: %ld %ld\n", node->id, (node->id + 1) % node->num_of_phil);
-		pthread_mutex_lock(&node->forks[node->id]);
+		// printf("w else: %d %d %ld\n", left_fork, right_fork, node->id);
+		usleep(50);
+		pthread_mutex_lock(&node->forks[left_fork]);
 		print_status(node, node->id, "has taken a fork", BLUE);
 		pthread_mutex_lock(&node->forks[right_fork]);
 		print_status(node, node->id, "has taken a fork", BLUE);
 	}
 	print_status(node, node->id, "is eating", GREEN);
 	usleep(node->time_to_eat);
-	printf("id: %ld\n",node->id);
+	// printf("id: %ld\n",node->id);
 	node->last_food[node->id - 1] = get_time();
-	printf("time: %ld\n", node->last_food[node->id - 1]);
+	// printf("time: %ld\n", node->last_food[node->id - 1]);
 	node->meals_counter[node->id - 1] ++;
 	// return (0);
 	pthread_mutex_unlock(&node->forks[left_fork]);
@@ -80,6 +90,8 @@ void	*philo_routine(void *arg)
 	while (node->num_of_eat == -1
 		|| node->meals_counter[node->id - 1] < node->num_of_eat)
 	{
+		if (node->id % 2 == 0)
+			usleep(50);
 		if (eating(node) == 0)
 			exit(1);
 		print_status(node, node->id, "is sleeping", MAGENTA);

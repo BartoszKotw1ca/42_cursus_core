@@ -6,7 +6,7 @@
 /*   By: bkotwica <bkotwica@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 11:41:30 by bkotwica          #+#    #+#             */
-/*   Updated: 2024/06/26 09:46:17 by bkotwica         ###   ########.fr       */
+/*   Updated: 2024/06/27 11:41:03 by bkotwica         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	write_data(t_node *node, char **argv, int argc)
 {
 	node->num_of_phil = ft_atoilong(argv[1]);
-	node->time_to_die = ft_atoilong(argv[2]) * 1000;
+	node->time_to_die = ft_atoilong(argv[2]);
 	node->time_to_eat = ft_atoilong(argv[3]) * 1000;
 	node->time_to_sleep = ft_atoilong(argv[4]) * 1000;
 	node->forks = malloc(sizeof(pthread_mutex_t) * node->num_of_phil);

@@ -1,31 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   for_one.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bkotwica <bkotwica@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/01 09:22:47 by bkotwica          #+#    #+#             */
-/*   Updated: 2024/06/27 15:18:24 by bkotwica         ###   ########.fr       */
+/*   Created: 2024/06/27 15:06:39 by bkotwica          #+#    #+#             */
+/*   Updated: 2024/06/27 15:25:16 by bkotwica         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-// struct timeval time; time.tv_sec - sec from Jan 1970
-// 1s = 1000 miliseconds
-// 1 mili = 1000 micro
-// usleep(micros);
-// data race mutex
-int	main(int argc, char **argv)
+void	for_one_phil(t_node *node)
 {
-	t_node		node;
-
-	check_data(argv + 1, argc);
-	write_data(&node, argv, argc);
-	node.start_time = get_time();
-	if (node.num_of_phil == 1)
-		for_one_phil(&node);
-	create_philos(&node);
-	free_data(&node);
+	printf("0 1 has taken a fork\n");
+	usleep(node->time_to_die * 1000);
+	printf("%lld 1 died\n", get_time() - node->start_time);
+	free_data(node);
+	free(node->last_food);
+	free(node->dead);
+	exit(0);
 }
