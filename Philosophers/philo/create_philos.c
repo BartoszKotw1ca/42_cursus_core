@@ -6,11 +6,38 @@
 /*   By: bkotwica <bkotwica@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 13:18:29 by bkotwica          #+#    #+#             */
-/*   Updated: 2024/06/27 10:37:07 by bkotwica         ###   ########.fr       */
+/*   Updated: 2024/06/27 16:38:45 by bkotwica         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+
+void	*monitoring_one(void *arg)
+{
+	t_node		**node;
+	int			i;
+	long int	time;
+	long int	p;
+
+	node = (t_node **)arg;
+	p = node[0]->num_of_phil;
+	i = 0;
+	while (i < p)
+	{
+		usleep(5000);
+		time = get_time();
+		if ((time - node[i]->last_food[i]) > node[i]->time_to_die
+			&& node[i]->is_eating == 0)
+		{
+			print_status(node[i], i + 1, "died", RED);
+			exit(0);
+		}
+		i ++;
+		i %= p;
+		usleep(500);
+	}
+	return (NULL);
+}
 
 void	create_philos(t_node *node)
 {
@@ -28,11 +55,15 @@ void	create_philos(t_node *node)
 			philo_routine, phil_nodes[node->i]);
 		node->i ++;
 	}
+	pthread_create(&node->check_mutex, NULL,
+			monitoring_one, phil_nodes);
 	node->i = 0;
 	while (node->i < node->num_of_phil)
 		pthread_join(node->philo[node->i ++], NULL);
+	pthread_join(node->check_mutex, NULL);
 	node->i = 0;
 	while (node->i < node->num_of_phil)
 		free(phil_nodes[node->i++]);
 	free(phil_nodes);
 }
+

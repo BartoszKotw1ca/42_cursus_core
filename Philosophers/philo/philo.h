@@ -6,7 +6,7 @@
 /*   By: bkotwica <bkotwica@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 09:18:43 by bkotwica          #+#    #+#             */
-/*   Updated: 2024/06/27 15:16:26 by bkotwica         ###   ########.fr       */
+/*   Updated: 2024/06/27 16:32:23 by bkotwica         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,8 @@ typedef struct s_node
 	pthread_mutex_t	print_mutex;
 	pthread_mutex_t	*dead;
 	int				dead1;
-	pthread_mutex_t	*check_mutex;
+	pthread_t		check_mutex;
+	int				is_eating;
 }			t_node;
 
 // Utils

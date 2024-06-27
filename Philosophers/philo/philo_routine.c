@@ -6,7 +6,7 @@
 /*   By: bkotwica <bkotwica@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 13:19:39 by bkotwica          #+#    #+#             */
-/*   Updated: 2024/06/27 15:03:41 by bkotwica         ###   ########.fr       */
+/*   Updated: 2024/06/27 16:36:24 by bkotwica         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,9 +69,11 @@ int	eating(t_node *node)
 		print_status(node, node->id, "has taken a fork", BLUE);
 	}
 	print_status(node, node->id, "is eating", GREEN);
+	node->is_eating = 1;
 	usleep(node->time_to_eat);
 	// printf("id: %ld\n",node->id);
 	node->last_food[node->id - 1] = get_time();
+	node->is_eating = 0;
 	// printf("time: %ld\n", node->last_food[node->id - 1]);
 	node->meals_counter[node->id - 1] ++;
 	// return (0);
@@ -85,6 +87,7 @@ void	*philo_routine(void *arg)
 	t_node	*node;
 
 	node = (t_node *) arg;
+	node->is_eating = 0;
 	node->meals_counter[node->id - 1] = 0;
 	node->last_food[node->id - 1] = get_time();
 	while (node->num_of_eat == -1
