@@ -6,11 +6,20 @@
 /*   By: bkotwica <bkotwica@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 13:18:29 by bkotwica          #+#    #+#             */
-/*   Updated: 2024/06/27 16:38:45 by bkotwica         ###   ########.fr       */
+/*   Updated: 2024/06/27 16:51:40 by bkotwica         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+
+void cleanup(t_node *node)
+{
+	free(node->forks);
+	free(node->philo);
+	free(node->meals_counter);
+	free(node->last_food);
+	free(node->dead);
+}
 
 void	*monitoring_one(void *arg)
 {
@@ -30,6 +39,9 @@ void	*monitoring_one(void *arg)
 			&& node[i]->is_eating == 0)
 		{
 			print_status(node[i], i + 1, "died", RED);
+			return (NULL);
+			cleanup(node[0]);
+			free(node);
 			exit(0);
 		}
 		i ++;
