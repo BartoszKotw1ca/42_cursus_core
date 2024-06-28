@@ -6,11 +6,33 @@
 /*   By: bkotwica <bkotwica@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 13:18:29 by bkotwica          #+#    #+#             */
-/*   Updated: 2024/06/28 11:28:39 by bkotwica         ###   ########.fr       */
+/*   Updated: 2024/06/28 13:11:23 by bkotwica         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+
+int	tmp_mon(t_node **node, long int timee, int p, int i)
+{
+	int	j;
+
+	j = -1;
+	while (++ j < p)
+		if (node[j]->meals_counter[j] != node[j]->num_of_eat)
+			break ;
+	if (j == p)
+		return (1);
+	if ((timee - node[i]->last_food[i]) > node[i]->time_to_die
+		&& node[i]->is_eating == 0)
+	{
+		print_status(node[i], i + 1, "died", RED);
+		i = 0;
+		while (i < node[0]->num_of_phil)
+			pthread_mutex_lock(&node[i++]->print_mutex);
+		return (1);
+	}
+	return (0);
+}
 
 void	*monitoring_one(void *arg)
 {
@@ -28,20 +50,8 @@ void	*monitoring_one(void *arg)
 		usleep(5000);
 		time = get_time();
 		j = -1;
-		while (++ j < p)
-			if (node[j]->meals_counter[j] != node[j]->num_of_eat)
-				break ;
-		if (j == p)
-			break ;
-		else if ((time - node[i]->last_food[i]) > node[i]->time_to_die
-			&& node[i]->is_eating == 0)
-		{
-			print_status(node[i], i + 1, "died", RED);
-			i = 0;
-			while (i < node[0]->num_of_phil)
-				pthread_mutex_lock(&node[i++]->print_mutex);
+		if (tmp_mon(node, time, p, i))
 			return (NULL);
-		}
 		i ++;
 		i %= p;
 		usleep(500);
