@@ -6,7 +6,7 @@
 /*   By: bkotwica <bkotwica@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 13:19:39 by bkotwica          #+#    #+#             */
-/*   Updated: 2024/06/28 11:35:08 by bkotwica         ###   ########.fr       */
+/*   Updated: 2024/06/28 13:23:49 by bkotwica         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,6 @@ int	eating(t_node *node)
 		right_fork = id + 1;
 	if (left_fork == 0)
 		right_fork = node->num_of_phil - 1;
-	if (node->dead1 == 1)
-		exit(0);
 	tmp_eating(node, right_fork, left_fork);
 	print_status(node, node->id, "is eating", GREEN);
 	node->is_eating = 1;
@@ -72,14 +70,11 @@ void	*philo_routine(void *arg)
 	{
 		if (node->id % 2 == 0)
 			usleep(50);
-		if (eating(node) == 0)
-			exit(1);
+		eating(node);
 		print_status(node, node->id, "is sleeping", MAGENTA);
 		usleep(node->time_to_sleep);
 		print_status(node, node->id, "is thinking", CYAN);
 		usleep(1);
-		if (node->dead1 == 1)
-			exit(0);
 	}
 	return (NULL);
 }
