@@ -6,7 +6,7 @@
 /*   By: bkotwica <bkotwica@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 09:18:43 by bkotwica          #+#    #+#             */
-/*   Updated: 2024/06/27 16:32:23 by bkotwica         ###   ########.fr       */
+/*   Updated: 2024/06/28 11:09:27 by bkotwica         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,13 @@
 # include <sys/time.h>
 # include <limits.h>
 
-#define RESET   "\033[0m"
-#define RED     "\033[31m"
-#define GREEN   "\033[32m"
-#define YELLOW  "\033[33m"
-#define BLUE    "\033[34m"
-#define MAGENTA "\033[35m"
-#define CYAN    "\033[36m"
+# define RESET   "\033[0m"
+# define RED     "\033[31m"
+# define GREEN   "\033[32m"
+# define YELLOW  "\033[33m"
+# define BLUE    "\033[34m"
+# define MAGENTA "\033[35m"
+# define CYAN    "\033[36m"
 
 typedef struct s_node
 {
@@ -55,7 +55,8 @@ void			tmp_fun(t_node node);
 long long int	get_time(void);
 void			exit_message(const char *s);
 void			free_data(t_node *node);
-void			print_status(t_node *node, int id, const char *status, char *color);
+void			print_status(t_node *node, int id,
+					const char *status, char *color);
 // Write_data
 void			write_data(t_node *node, char **argv, int argc);
 
@@ -71,6 +72,6 @@ void			create_philos(t_node *node);
 // philo_routine
 void			*philo_routine(void *arg);
 
-void	for_one_phil(t_node *node);
+void			for_one_phil(t_node *node);
 
 #endif
