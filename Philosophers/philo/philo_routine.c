@@ -6,27 +6,14 @@
 /*   By: bkotwica <bkotwica@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 13:19:39 by bkotwica          #+#    #+#             */
-/*   Updated: 2024/06/28 11:32:08 by bkotwica         ###   ########.fr       */
+/*   Updated: 2024/06/28 11:35:08 by bkotwica         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int	eating(t_node *node)
+void	tmp_eating(t_node *node, int right_fork, int left_fork)
 {
-	int	left_fork;
-	int	right_fork;
-	int	id;
-
-	id = node->id - 1;
-	left_fork = id;
-	right_fork = (id % node->num_of_phil) - 1;
-	if (right_fork < 0)
-		right_fork = id + 1;
-	if (left_fork == 0)
-		right_fork = node->num_of_phil - 1;
-	if (node->dead1 == 1)
-		exit(0);
 	if (node->id % 2 == 0)
 	{
 		usleep(50);
@@ -43,6 +30,24 @@ int	eating(t_node *node)
 		pthread_mutex_lock(&node->forks[right_fork]);
 		print_status(node, node->id, "has taken a fork", BLUE);
 	}
+}
+
+int	eating(t_node *node)
+{
+	int	left_fork;
+	int	right_fork;
+	int	id;
+
+	id = node->id - 1;
+	left_fork = id;
+	right_fork = (id % node->num_of_phil) - 1;
+	if (right_fork < 0)
+		right_fork = id + 1;
+	if (left_fork == 0)
+		right_fork = node->num_of_phil - 1;
+	if (node->dead1 == 1)
+		exit(0);
+	tmp_eating(node, right_fork, left_fork);
 	print_status(node, node->id, "is eating", GREEN);
 	node->is_eating = 1;
 	usleep(node->time_to_eat);
