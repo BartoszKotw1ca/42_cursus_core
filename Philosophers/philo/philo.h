@@ -6,7 +6,7 @@
 /*   By: bkotwica <bkotwica@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 09:18:43 by bkotwica          #+#    #+#             */
-/*   Updated: 2024/06/28 11:09:27 by bkotwica         ###   ########.fr       */
+/*   Updated: 2024/07/01 15:18:40 by bkotwica         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,11 +43,16 @@ typedef struct s_node
 	long int		*last_food;
 	pthread_mutex_t	*forks;
 	pthread_t		*philo;
-	pthread_mutex_t	print_mutex;
+	pthread_mutex_t	*print_mutex;
 	pthread_mutex_t	*dead;
 	int				dead1;
 	pthread_t		check_mutex;
 	int				is_eating;
+	pthread_mutex_t	*meals_count;
+	pthread_mutex_t	*num_of_e;
+	pthread_mutex_t	*last_fod;
+	pthread_mutex_t	*time_to_di;
+	pthread_mutex_t	*is_eat;
 }			t_node;
 
 // Utils

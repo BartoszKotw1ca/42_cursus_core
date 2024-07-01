@@ -6,7 +6,7 @@
 /*   By: bkotwica <bkotwica@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 13:19:39 by bkotwica          #+#    #+#             */
-/*   Updated: 2024/06/28 13:23:49 by bkotwica         ###   ########.fr       */
+/*   Updated: 2024/07/01 15:59:05 by bkotwica         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,11 +47,19 @@ int	eating(t_node *node)
 		right_fork = node->num_of_phil - 1;
 	tmp_eating(node, right_fork, left_fork);
 	print_status(node, node->id, "is eating", GREEN);
+	pthread_mutex_lock(node->is_eat);
 	node->is_eating = 1;
+	pthread_mutex_unlock(node->is_eat);
 	usleep(node->time_to_eat);
+	pthread_mutex_lock(&node->last_fod[node->id - 1]);
 	node->last_food[node->id - 1] = get_time();
+	pthread_mutex_unlock(&node->last_fod[node->id - 1]);
+	pthread_mutex_lock(node->is_eat);
 	node->is_eating = 0;
+	pthread_mutex_unlock(node->is_eat);
+	pthread_mutex_lock(&node->meals_count[node->id - 1]);
 	node->meals_counter[node->id - 1]++;
+	pthread_mutex_unlock(&node->meals_count[node->id - 1]);
 	pthread_mutex_unlock(&node->forks[left_fork]);
 	pthread_mutex_unlock(&node->forks[right_fork]);
 	return (1);
@@ -62,9 +70,17 @@ void	*philo_routine(void *arg)
 	t_node	*node;
 
 	node = (t_node *) arg;
+	usleep(500);
+	printf("id: %ld\n", node->id);
+	pthread_mutex_lock(node->is_eat);
 	node->is_eating = 0;
+	pthread_mutex_unlock(node->is_eat);
+	pthread_mutex_lock(&node->meals_count[node->id - 1]);
 	node->meals_counter[node->id - 1] = 0;
+	pthread_mutex_unlock(&node->meals_count[node->id - 1]);
+	pthread_mutex_lock(&node->last_fod[node->id - 1]);
 	node->last_food[node->id - 1] = get_time();
+	pthread_mutex_unlock(&node->last_fod[node->id - 1]);
 	while (node->num_of_eat == -1
 		|| node->meals_counter[node->id - 1] < node->num_of_eat)
 	{
