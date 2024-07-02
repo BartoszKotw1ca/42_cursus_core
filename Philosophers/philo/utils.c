@@ -6,7 +6,7 @@
 /*   By: bkotwica <bkotwica@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 09:30:24 by bkotwica          #+#    #+#             */
-/*   Updated: 2024/07/02 13:52:19 by bkotwica         ###   ########.fr       */
+/*   Updated: 2024/07/02 15:03:57 by bkotwica         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,19 +44,14 @@ void	free_data(t_node *node)
 	node->i = 0;
 	while (node->i < node->num_of_phil)
 	{
-		pthread_mutex_unlock(&node->forks[node->i]);
 		pthread_mutex_destroy(&node->forks[node->i]);
-		pthread_mutex_unlock(&node->meals_count[node->i]);
 		pthread_mutex_destroy(&node->meals_count[node->i]);
-		pthread_mutex_unlock(&node->last_fod[node->i]);
 		pthread_mutex_destroy(&node->last_fod[node->i ++]);
 	}
 	free(node->forks);
 	free(node->meals_count);
 	free(node->last_fod);
-	pthread_mutex_unlock(node->print_mutex);
 	pthread_mutex_destroy(node->print_mutex);
-	pthread_mutex_unlock(node->deadd);
 	pthread_mutex_destroy(node->deadd);
 	free(node->deadd);
 	free(node->print_mutex);
