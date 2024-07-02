@@ -6,7 +6,7 @@
 /*   By: bkotwica <bkotwica@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 09:30:24 by bkotwica          #+#    #+#             */
-/*   Updated: 2024/07/01 13:28:42 by bkotwica         ###   ########.fr       */
+/*   Updated: 2024/07/02 12:48:28 by bkotwica         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,17 +41,29 @@ void	exit_message(const char *s)
 
 void	free_data(t_node *node)
 {
-	usleep(500);
 	node->i = 0;
 	while (node->i < node->num_of_phil)
 	{
 		pthread_mutex_unlock(&node->forks[node->i]);
-		pthread_mutex_destroy(&node->forks[node->i ++]);
+		pthread_mutex_destroy(&node->forks[node->i]);
+		pthread_mutex_unlock(&node->meals_count[node->i]);
+		pthread_mutex_destroy(&node->meals_count[node->i]);
+		pthread_mutex_unlock(&node->last_fod[node->i]);
+		pthread_mutex_destroy(&node->last_fod[node->i ++]);
 	}
+	free(node->forks);
+	free(node->meals_count);
+	free(node->last_fod);
 	pthread_mutex_unlock(node->print_mutex);
 	pthread_mutex_destroy(node->print_mutex);
-	free(node->forks);
+	pthread_mutex_unlock(node->deadd);
+	pthread_mutex_destroy(node->deadd);
+	free(node->deadd);
+	free(node->print_mutex);
 	free(node->philo);
+	free(node->num_of_e);
+	free(node->time_to_di);
+	free(node->is_eat);
 	free(node->last_food);
 	free(node->meals_counter);
 }
@@ -60,6 +72,10 @@ pthread_mutex_t print_mutex = PTHREAD_MUTEX_INITIALIZER;
 
 void	print_status(t_node *node, int id, const char *status, char *color)
 {
+	if (node->id > 200)
+		return ;
+	if (node->dead1 == 1)
+		return ;
 	pthread_mutex_lock(&print_mutex);
 	printf("%s%lld %d %s%s\n", color, get_time() - node->start_time,
 		id, status, RESET);

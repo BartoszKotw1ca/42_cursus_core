@@ -6,7 +6,7 @@
 /*   By: bkotwica <bkotwica@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 09:18:43 by bkotwica          #+#    #+#             */
-/*   Updated: 2024/07/01 15:18:40 by bkotwica         ###   ########.fr       */
+/*   Updated: 2024/07/02 12:46:19 by bkotwica         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ typedef struct s_node
 	pthread_mutex_t	*last_fod;
 	pthread_mutex_t	*time_to_di;
 	pthread_mutex_t	*is_eat;
+	pthread_mutex_t	*deadd;
 }			t_node;
 
 // Utils

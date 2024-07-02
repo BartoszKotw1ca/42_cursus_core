@@ -6,7 +6,7 @@
 /*   By: bkotwica <bkotwica@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 13:18:29 by bkotwica          #+#    #+#             */
-/*   Updated: 2024/07/01 15:57:04 by bkotwica         ###   ########.fr       */
+/*   Updated: 2024/07/02 12:52:32 by bkotwica         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +36,15 @@ int	tmp_mon(t_node **node, long int timee, int p, int i)
 	if ((timee - node[i]->last_food[i]) > node[i]->time_to_die
 		&& node[i]->is_eating == 0)
 	{
-		pthread_mutex_lock(node[0]->print_mutex);
 		print_status(node[i], i + 1, "died", RED);
-		usleep(500000);
+		j = 0;
+		pthread_mutex_lock(node[0]->deadd);
+		while (j < p)
+			node[j ++]->dead1 = 1;
+		pthread_mutex_unlock(node[0]->deadd);
+		pthread_mutex_unlock(&node[i]->last_fod[i]);
+		pthread_mutex_unlock(node[i]->time_to_di);
+		pthread_mutex_unlock(node[i]->is_eat);
 		return (1);
 	}
 	pthread_mutex_unlock(&node[i]->last_fod[i]);
@@ -57,15 +63,15 @@ void	*monitoring_one(void *arg)
 	node = (t_node **)arg;
 	p = node[0]->num_of_phil;
 	i = 0;
+	usleep(5000);
 	while (i < p)
 	{
-		usleep(5000);
 		time = get_time();
 		if (tmp_mon(node, time, p, i))
 			return (NULL);
 		i ++;
 		i %= p;
-		usleep(500);
+		// usleep(500);
 	}
 	return (NULL);
 }
@@ -86,6 +92,8 @@ void	create_philos(t_node *node)
 		phil_nodes[i]->num_of_e = node->num_of_e;
 		phil_nodes[i]->time_to_di = node->time_to_di;
 		phil_nodes[i]->print_mutex = node->print_mutex;
+		phil_nodes[i]->dead1 = node->dead1;
+		phil_nodes[i]->deadd = node->deadd;
 		pthread_create(&node->philo[i], NULL,
 			philo_routine, phil_nodes[i]);
 		i ++;
@@ -93,9 +101,11 @@ void	create_philos(t_node *node)
 	pthread_create(&node->check_mutex, NULL,
 		monitoring_one, phil_nodes);
 	pthread_join(node->check_mutex, NULL);
+	// pthread_mutex_lock(node->print_mutex);
+	printf("%d\n", node->dead1);
 	i = 0;
 	while (i < node->num_of_phil)
-		if (pthread_detach(node->philo[i ++]) != 0)
+		if (pthread_join(node->philo[i ++], NULL) != 0)
 			printf("Something went wrong!!!\n");
 	i = 0;
 	while (i < node->num_of_phil)

@@ -6,7 +6,7 @@
 /*   By: bkotwica <bkotwica@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 11:41:30 by bkotwica          #+#    #+#             */
-/*   Updated: 2024/07/01 15:20:38 by bkotwica         ###   ########.fr       */
+/*   Updated: 2024/07/02 12:47:21 by bkotwica         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ void	write_data(t_node *node, char **argv, int argc)
 	node->last_fod = malloc(sizeof(pthread_mutex_t) * node->num_of_phil);
 	node->time_to_di = malloc(sizeof(pthread_mutex_t));
 	node->is_eat = malloc(sizeof(pthread_mutex_t));
+	node->deadd = malloc(sizeof(pthread_mutex_t));
+	node->dead1 = 0;
 	if (!node->forks || !node->philo || !node->meals_counter
 		|| !node->last_food)
 		exit(0);
@@ -42,6 +44,7 @@ void	write_data(t_node *node, char **argv, int argc)
 		pthread_mutex_init(&node->meals_count[i ++], NULL);
 	pthread_mutex_init(node->num_of_e, NULL);
 	i = 0;
+	pthread_mutex_init(node->deadd, NULL);
 	pthread_mutex_init(node->is_eat, NULL);
 	while (i < node->num_of_phil)
 		pthread_mutex_init(&node->last_fod[i ++], NULL);
