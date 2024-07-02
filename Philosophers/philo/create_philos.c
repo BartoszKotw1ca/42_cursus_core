@@ -6,7 +6,7 @@
 /*   By: bkotwica <bkotwica@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 13:18:29 by bkotwica          #+#    #+#             */
-/*   Updated: 2024/07/02 13:44:15 by bkotwica         ###   ########.fr       */
+/*   Updated: 2024/07/02 14:59:42 by bkotwica         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,11 @@ int	tmp_mon(t_node **node, long int timee, int p, int i)
 			pthread_mutex_unlock(&node[j]->meals_count[j]);
 			pthread_mutex_unlock(node[j]->num_of_e);
 			break ;
+		}
+		else
+		{
+			pthread_mutex_unlock(&node[j]->meals_count[j]);
+			pthread_mutex_unlock(node[j]->num_of_e);
 		}
 	}
 	if (j == p)
