@@ -6,30 +6,17 @@
 /*   By: bkotwica <bkotwica@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 13:18:29 by bkotwica          #+#    #+#             */
-/*   Updated: 2024/07/02 13:34:10 by bkotwica         ###   ########.fr       */
+/*   Updated: 2024/07/02 13:44:15 by bkotwica         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int	tmp_mon(t_node **node, long int timee, int p, int i)
+int	check_if_die(long int timee, t_node **node, int i, int p)
 {
 	int	j;
 
-	j = -1;
-	while (++ j < p)
-	{
-		pthread_mutex_lock(node[j]->num_of_e);
-		pthread_mutex_lock(&node[j]->meals_count[j]);
-		if (node[j]->meals_counter[j] != node[j]->num_of_eat)
-		{
-			pthread_mutex_unlock(&node[j]->meals_count[j]);
-			pthread_mutex_unlock(node[j]->num_of_e);
-			break ;
-		}
-	}
-	if (j == p)
-		return (1);
+	j = 0;
 	pthread_mutex_lock(&node[i]->last_fod[i]);
 	pthread_mutex_lock(node[i]->time_to_di);
 	pthread_mutex_lock(node[i]->is_eat);
@@ -53,6 +40,29 @@ int	tmp_mon(t_node **node, long int timee, int p, int i)
 	return (0);
 }
 
+int	tmp_mon(t_node **node, long int timee, int p, int i)
+{
+	int	j;
+
+	j = -1;
+	while (++ j < p)
+	{
+		pthread_mutex_lock(node[j]->num_of_e);
+		pthread_mutex_lock(&node[j]->meals_count[j]);
+		if (node[j]->meals_counter[j] != node[j]->num_of_eat)
+		{
+			pthread_mutex_unlock(&node[j]->meals_count[j]);
+			pthread_mutex_unlock(node[j]->num_of_e);
+			break ;
+		}
+	}
+	if (j == p)
+		return (1);
+	if (check_if_die(timee, node, i, p))
+		return (1);
+	return (0);
+}
+
 void	*monitoring_one(void *arg)
 {
 	t_node		**node;
@@ -71,18 +81,12 @@ void	*monitoring_one(void *arg)
 			return (NULL);
 		i ++;
 		i %= p;
-		// usleep(500);
 	}
 	return (NULL);
 }
 
-void	create_philos(t_node *node)
+void	create_philo(t_node *node, t_node **phil_nodes, int i)
 {
-	t_node	**phil_nodes;
-
-	node->i = 0;
-	int i = 0;
-	phil_nodes = malloc(sizeof(t_node *) * node->num_of_phil);
 	while (i < node->num_of_phil)
 	{
 		phil_nodes[i] = malloc(sizeof(t_node));
@@ -98,11 +102,19 @@ void	create_philos(t_node *node)
 			philo_routine, phil_nodes[i]);
 		i ++;
 	}
+}
+
+void	create_philos(t_node *node)
+{
+	t_node	**phil_nodes;
+	int		i;
+
+	i = 0;
+	phil_nodes = malloc(sizeof(t_node *) * node->num_of_phil);
+	create_philo(node, phil_nodes, i);
 	pthread_create(&node->check_mutex, NULL,
 		monitoring_one, phil_nodes);
 	pthread_join(node->check_mutex, NULL);
-	// pthread_mutex_lock(node->print_mutex);
-	printf("%d\n", node->dead1);
 	i = 0;
 	while (i < node->num_of_phil)
 		if (pthread_join(node->philo[i ++], NULL) != 0)
