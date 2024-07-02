@@ -6,7 +6,7 @@
 /*   By: bkotwica <bkotwica@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 13:19:39 by bkotwica          #+#    #+#             */
-/*   Updated: 2024/07/02 13:14:02 by bkotwica         ###   ########.fr       */
+/*   Updated: 2024/07/02 13:49:14 by bkotwica         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,6 @@ void	*while_loop(t_node *node)
 	while (node->num_of_eat == -1
 		|| node->meals_counter[node->id - 1] < node->num_of_eat)
 	{
-		// printf("id: %ld\n", node->id);
 		pthread_mutex_lock(node->deadd);
 		if (node->dead1 == 1)
 		{

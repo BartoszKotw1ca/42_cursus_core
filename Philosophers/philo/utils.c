@@ -6,7 +6,7 @@
 /*   By: bkotwica <bkotwica@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 09:30:24 by bkotwica          #+#    #+#             */
-/*   Updated: 2024/07/02 12:48:28 by bkotwica         ###   ########.fr       */
+/*   Updated: 2024/07/02 13:52:19 by bkotwica         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,16 +68,14 @@ void	free_data(t_node *node)
 	free(node->meals_counter);
 }
 
-pthread_mutex_t print_mutex = PTHREAD_MUTEX_INITIALIZER;
-
 void	print_status(t_node *node, int id, const char *status, char *color)
 {
 	if (node->id > 200)
 		return ;
 	if (node->dead1 == 1)
 		return ;
-	pthread_mutex_lock(&print_mutex);
+	pthread_mutex_lock(node->print_mutex);
 	printf("%s%lld %d %s%s\n", color, get_time() - node->start_time,
 		id, status, RESET);
-	pthread_mutex_unlock(&print_mutex);
+	pthread_mutex_unlock(node->print_mutex);
 }
