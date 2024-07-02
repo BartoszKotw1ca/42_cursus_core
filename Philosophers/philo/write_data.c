@@ -6,13 +6,13 @@
 /*   By: bkotwica <bkotwica@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 11:41:30 by bkotwica          #+#    #+#             */
-/*   Updated: 2024/07/02 13:32:23 by bkotwica         ###   ########.fr       */
+/*   Updated: 2024/07/02 13:48:20 by bkotwica         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
-// #include <string.h>
-void	write_data(t_node *node, char **argv, int argc)
+
+void	alloc_mem(t_node *node, char **argv)
 {
 	node->num_of_phil = ft_atoilong(argv[1]);
 	node->time_to_die = ft_atoilong(argv[2]);
@@ -33,6 +33,13 @@ void	write_data(t_node *node, char **argv, int argc)
 	if (!node->forks || !node->philo || !node->meals_counter
 		|| !node->last_food)
 		exit(0);
+}
+
+void	write_data(t_node *node, char **argv, int argc)
+{
+	int	i;
+
+	alloc_mem(node, argv);
 	ft_memset(node->meals_counter, 0, sizeof(long int) * node->num_of_phil);
 	ft_memset(node->last_food, 0, sizeof(long int) * node->num_of_phil);
 	node->num_of_eat = -1;
@@ -41,7 +48,7 @@ void	write_data(t_node *node, char **argv, int argc)
 	else
 		node->num_of_eat = -1;
 	pthread_mutex_init(node->print_mutex, NULL);
-	int	i = 0;
+	i = 0;
 	while (i < node->num_of_phil)
 		pthread_mutex_init(&node->meals_count[i ++], NULL);
 	pthread_mutex_init(node->num_of_e, NULL);
