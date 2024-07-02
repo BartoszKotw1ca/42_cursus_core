@@ -6,7 +6,7 @@
 /*   By: bkotwica <bkotwica@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 13:19:39 by bkotwica          #+#    #+#             */
-/*   Updated: 2024/07/02 14:59:24 by bkotwica         ###   ########.fr       */
+/*   Updated: 2024/07/02 16:21:11 by bkotwica         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ void	*while_loop(t_node *node)
 		print_status(node, node->id, "is sleeping", MAGENTA);
 		usleep(node->time_to_sleep);
 		print_status(node, node->id, "is thinking", CYAN);
-		usleep(1);
+		usleep(500);
 	}
 	return (NULL);
 }

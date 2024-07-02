@@ -6,7 +6,7 @@
 /*   By: bkotwica <bkotwica@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 09:30:24 by bkotwica          #+#    #+#             */
-/*   Updated: 2024/07/02 15:03:57 by bkotwica         ###   ########.fr       */
+/*   Updated: 2024/07/02 16:24:54 by bkotwica         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,8 +67,13 @@ void	print_status(t_node *node, int id, const char *status, char *color)
 {
 	if (node->id > 200)
 		return ;
+	pthread_mutex_lock(node->deadd);
 	if (node->dead1 == 1)
+	{
+		pthread_mutex_unlock(node->deadd);
 		return ;
+	}
+	pthread_mutex_unlock(node->deadd);
 	pthread_mutex_lock(node->print_mutex);
 	printf("%s%lld %d %s%s\n", color, get_time() - node->start_time,
 		id, status, RESET);

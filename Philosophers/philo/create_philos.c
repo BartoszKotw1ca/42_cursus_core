@@ -6,7 +6,7 @@
 /*   By: bkotwica <bkotwica@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 13:18:29 by bkotwica          #+#    #+#             */
-/*   Updated: 2024/07/02 14:59:42 by bkotwica         ###   ########.fr       */
+/*   Updated: 2024/07/02 16:18:27 by bkotwica         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,7 @@ void	*monitoring_one(void *arg)
 			return (NULL);
 		i ++;
 		i %= p;
+		usleep(500);
 	}
 	return (NULL);
 }
