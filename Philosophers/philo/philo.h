@@ -6,7 +6,7 @@
 /*   By: bkotwica <bkotwica@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 09:18:43 by bkotwica          #+#    #+#             */
-/*   Updated: 2024/07/02 12:46:19 by bkotwica         ###   ########.fr       */
+/*   Updated: 2024/07/02 13:32:10 by bkotwica         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,5 +79,7 @@ void			create_philos(t_node *node);
 void			*philo_routine(void *arg);
 
 void			for_one_phil(t_node *node);
+
+void			*ft_memset(void *s, int c, size_t n);
 
 #endif

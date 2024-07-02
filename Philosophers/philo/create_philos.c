@@ -6,7 +6,7 @@
 /*   By: bkotwica <bkotwica@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 13:18:29 by bkotwica          #+#    #+#             */
-/*   Updated: 2024/07/02 12:52:32 by bkotwica         ###   ########.fr       */
+/*   Updated: 2024/07/02 13:34:10 by bkotwica         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ void	*monitoring_one(void *arg)
 	node = (t_node **)arg;
 	p = node[0]->num_of_phil;
 	i = 0;
-	usleep(5000);
+	usleep(50000);
 	while (i < p)
 	{
 		time = get_time();

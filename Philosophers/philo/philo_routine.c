@@ -6,7 +6,7 @@
 /*   By: bkotwica <bkotwica@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 13:19:39 by bkotwica          #+#    #+#             */
-/*   Updated: 2024/07/02 13:02:43 by bkotwica         ###   ########.fr       */
+/*   Updated: 2024/07/02 13:14:02 by bkotwica         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,19 +32,8 @@ void	tmp_eating(t_node *node, int right_fork, int left_fork)
 	}
 }
 
-int	eating(t_node *node)
+void	write_var(t_node *node, int right_fork, int left_fork)
 {
-	int	left_fork;
-	int	right_fork;
-	int	id;
-
-	id = node->id - 1;
-	left_fork = id;
-	right_fork = (id % node->num_of_phil) - 1;
-	if (right_fork < 0)
-		right_fork = id + 1;
-	if (left_fork == 0)
-		right_fork = node->num_of_phil - 1;
 	tmp_eating(node, right_fork, left_fork);
 	print_status(node, node->id, "is eating", GREEN);
 	pthread_mutex_lock(node->is_eat);
@@ -62,6 +51,22 @@ int	eating(t_node *node)
 	pthread_mutex_unlock(&node->meals_count[node->id - 1]);
 	pthread_mutex_unlock(&node->forks[left_fork]);
 	pthread_mutex_unlock(&node->forks[right_fork]);
+}
+
+int	eating(t_node *node)
+{
+	int	left_fork;
+	int	right_fork;
+	int	id;
+
+	id = node->id - 1;
+	left_fork = id;
+	right_fork = (id % node->num_of_phil) - 1;
+	if (right_fork < 0)
+		right_fork = id + 1;
+	if (left_fork == 0)
+		right_fork = node->num_of_phil - 1;
+	write_var(node, right_fork, left_fork);
 	return (1);
 }
 
@@ -70,6 +75,7 @@ void	*while_loop(t_node *node)
 	while (node->num_of_eat == -1
 		|| node->meals_counter[node->id - 1] < node->num_of_eat)
 	{
+		// printf("id: %ld\n", node->id);
 		pthread_mutex_lock(node->deadd);
 		if (node->dead1 == 1)
 		{

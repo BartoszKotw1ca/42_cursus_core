@@ -6,12 +6,12 @@
 /*   By: bkotwica <bkotwica@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 11:41:30 by bkotwica          #+#    #+#             */
-/*   Updated: 2024/07/02 12:47:21 by bkotwica         ###   ########.fr       */
+/*   Updated: 2024/07/02 13:32:23 by bkotwica         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
-
+// #include <string.h>
 void	write_data(t_node *node, char **argv, int argc)
 {
 	node->num_of_phil = ft_atoilong(argv[1]);
@@ -33,6 +33,8 @@ void	write_data(t_node *node, char **argv, int argc)
 	if (!node->forks || !node->philo || !node->meals_counter
 		|| !node->last_food)
 		exit(0);
+	ft_memset(node->meals_counter, 0, sizeof(long int) * node->num_of_phil);
+	ft_memset(node->last_food, 0, sizeof(long int) * node->num_of_phil);
 	node->num_of_eat = -1;
 	if (argc == 6)
 		node->num_of_eat = ft_atoilong(argv[5]);
