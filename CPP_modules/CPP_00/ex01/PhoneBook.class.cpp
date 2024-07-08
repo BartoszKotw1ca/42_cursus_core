@@ -5,12 +5,11 @@
 PhoneBook::PhoneBook( void )
 {
 	this->num_of_con = 0;
-	std::cout << "Class builded" << std::endl;
 }
 
 PhoneBook::~PhoneBook( void )
 {
-	std::cout << "Class destroyd" << std::endl;
+	std::cout << "Bye!" << std::endl;
 }
 
 void	PhoneBook::add( void )
@@ -21,25 +20,25 @@ void	PhoneBook::add( void )
 		std::cout << "The book is full, i have to delete last record!\n";
 	}
 	std::cout << "First name: ";
-	std::getline(std::cin, this->first_name[this->num_of_con]);
+	std::getline(std::cin, this->contacts[this->num_of_con].first_name);
 	std::cout << "Last name: ";
-	std::getline(std::cin, this->last_name[this->num_of_con]);
+	std::getline(std::cin, this->contacts[this->num_of_con].last_name);
 	std::cout << "Nickname: ";
-	std::getline(std::cin, this->nickname[this->num_of_con]);
+	std::getline(std::cin, this->contacts[this->num_of_con].nickname);
 	std::cout << "Phone number: ";
-	std::getline(std::cin, this->phone_num[this->num_of_con]);
+	std::getline(std::cin, this->contacts[this->num_of_con].phone_num);
 	std::cout << "Your darkest secret: ";
-	std::getline(std::cin, this->secret[this->num_of_con]);
+	std::getline(std::cin, this->contacts[this->num_of_con].secret);
 	this->num_of_con += 1;
 }
 
 void	PhoneBook::print_info(int i)
 {
-	std::cout << "First name:   " << this->first_name[i] << std::endl;
-	std::cout << "Last name:    " << this->last_name[i] << std::endl;
-	std::cout << "Nickname:     " << this->nickname[i] << std::endl;
-	std::cout << "Phone number: " << this->phone_num[i] << std::endl;
-	std::cout << "Secret:       "<< this->secret[i] << std::endl;
+	std::cout << "First name:   " << this->contacts[i].first_name << std::endl;
+	std::cout << "Last name:    " << this->contacts[i].last_name << std::endl;
+	std::cout << "Nickname:     " << this->contacts[i].nickname << std::endl;
+	std::cout << "Phone number: " << this->contacts[i].phone_num << std::endl;
+	std::cout << "Secret:       "<< this->contacts[i].secret << std::endl;
 }
 
 void	PhoneBook::search( void )
@@ -49,14 +48,14 @@ void	PhoneBook::search( void )
 		std::cout << "Phone book is empty!" << std::endl;
 	for (int i = 0; i < this->num_of_con; i ++)
 	{
-		std::string firstname = this->first_name[i].substr(0, 9);
-		std::string lastname = this->last_name[i].substr(0, 9);
-		std::string nick = this->nickname[i].substr(0, 9);
-		if (this->first_name[i].length() >= 10)
+		std::string firstname = this->contacts[i].first_name.substr(0, 9);
+		std::string lastname = this->contacts[i].last_name.substr(0, 9);
+		std::string nick = this->contacts[i].nickname.substr(0, 9);
+		if (this->contacts[i].first_name.length() >= 10)
 			firstname += '.';
-		if (this->last_name[i].length() >= 10)
+		if (this->contacts[i].last_name.length() >= 10)
 			lastname += '.';
-		if (this->nickname[i].length() >= 10)
+		if (this->contacts[i].nickname.length() >= 10)
 			nick += '.';
 		std::cout << std::setw(10) << i + 1 << " | " 
 			<< std::setw(10)<< firstname << " | " 

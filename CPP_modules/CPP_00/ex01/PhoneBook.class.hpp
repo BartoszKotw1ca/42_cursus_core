@@ -3,16 +3,22 @@
 #ifndef PHONEBOOK_CLASS_CPP
 # define PHONEBOOK_CLASS_CPP
 
+class Contact
+{
+public:
+    std::string tmp;
+    std::string first_name;
+    std::string last_name;
+    std::string nickname;
+    std::string phone_num;
+    std::string secret;
+} ;
+
 class PhoneBook
 {
 public:
     int num_of_con;
-    std::string tmp[8];
-    std::string first_name[9];
-    std::string last_name[9];
-    std::string nickname[9];
-    std::string phone_num[9];
-    std::string secret[9];
+    Contact contacts[8];
     PhoneBook( void );
     ~PhoneBook( void );
     void    add( void );
