@@ -1,4 +1,4 @@
 all:
-	@ c++ *.cpp -Wall -Wextra -Werror -o Zombie
-	./Zombie
-	@ rm Zombie
+	@ c++ *.cpp -Wall -Wextra -Werror -o str
+	./str
+	@ rm str
