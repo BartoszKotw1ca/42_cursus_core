@@ -1,4 +1,4 @@
 all:
-	@ c++ *.cpp -Wall -Wextra -Werror -o Zombie
+	@ c++ *.cpp -std=c++98 -Wall -Wextra -Werror -o Zombie
 	./Zombie
 	@ rm Zombie
