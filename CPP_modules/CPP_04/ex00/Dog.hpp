@@ -6,9 +6,11 @@
 class Dog : public Animal
 {
     public:
-        Dog ( void ) { this->_type = "Dog"; std::cout << "Dog constructor\n"; };
-        ~Dog ( void ) { std::cout << "Dog destructor\n"; };
-        void    makeSound( void ) const { std::cout << "Dog sound\n"; };
-} ;
+        Dog ( void );
+        Dog ( const Dog &other );
+        Dog &operator = ( const Dog &other );
+        ~Dog ( void );
+        void makeSound( void ) const;
+};
 
 #endif

@@ -6,9 +6,11 @@
 class Cat : public Animal
 {
     public:
-        Cat ( void ) { this->_type = "Cat"; std::cout << "Cat constructor\n"; };
-        ~Cat ( void ) { std::cout << "Cat destructor\n"; };
-        void    makeSound( void ) const { std::cout << "Cat sound\n"; };
-} ;
+        Cat ( void );
+        Cat ( const Cat &other );
+        Cat &operator = ( const Cat &other );
+        ~Cat ( void );
+        void makeSound( void ) const;
+};
 
 #endif
