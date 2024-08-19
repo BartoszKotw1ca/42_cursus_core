@@ -51,6 +51,10 @@ int	main(void)
 {
     // test1();
     // test2();
+    ClapTrap hum1("TestBot");
+    ClapTrap hum2(hum1);
+
+    hum2 = hum1;
 	return (0);
 }
 

@@ -7,6 +7,8 @@ class ClapTrap
 {
     public:
         ClapTrap ( std::string name = "No name");
+        ClapTrap ( const ClapTrap& copy );
+        ClapTrap& operator= ( const ClapTrap& other );
         ~ClapTrap ( void );
         void    attack ( const std::string& target );
         void    takeDamage ( unsigned int amount );
