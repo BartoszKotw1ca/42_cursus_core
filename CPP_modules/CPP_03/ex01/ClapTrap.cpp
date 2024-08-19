@@ -17,7 +17,7 @@ ClapTrap::ClapTrap( const ClapTrap& other )
     std::cout << "Copy constructor called" << std::endl;
 }
 
-ClapTrap& ClapTrap:: operator = ( const ClapTrap& other )
+ClapTrap& ClapTrap::operator = ( const ClapTrap& other )
 {
     _name = other._name;
     _health = other._health;

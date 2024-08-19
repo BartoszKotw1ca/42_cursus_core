@@ -8,6 +8,6 @@ int	main(void)
     tmp.attack("Adam");
     tmp.beRepaired(10);
     tmp.print_e_point();
-    tmp.guardGate();
+    // tmp.guardGate();
     return (0);
 }
