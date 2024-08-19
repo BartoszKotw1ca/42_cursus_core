@@ -8,6 +8,25 @@ ClapTrap::ClapTrap( std::string name ) : _name (name)
 	std::cout << "Constructor called" << std::endl;
 }
 
+ClapTrap::ClapTrap( const ClapTrap& other )
+{
+    _name = other._name;
+    _health = other._health;
+    _e_point = other._e_point;
+    _att_damage = other._att_damage;
+    std::cout << "Copy constructor called" << std::endl;
+}
+
+ClapTrap& ClapTrap:: operator = ( const ClapTrap& other )
+{
+    _name = other._name;
+    _health = other._health;
+    _e_point = other._e_point;
+    _att_damage = other._att_damage;
+    std::cout << "Copy assignation operator called" << std::endl;
+    return *this;
+}
+
 ClapTrap::~ClapTrap ( void )
 {
 	std::cout << "Destructor called" << std::endl;
