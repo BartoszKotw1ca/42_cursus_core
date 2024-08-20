@@ -36,7 +36,7 @@ void    test_for_animal( void )
     // poniewaz jest ona abstrakcyjna oznacza to
     // ze nie mozemy jej samej w sobie zaincjalizowac
     // mozemy miec taki typ jedynie jako wskaznik
-    // const AAnimal* meta = new AAnimal();
+    // const Animal* meta = new Animal();
     const Animal* j = new Dog();
     const Animal* i = new Cat();
     std::cout << j->getType() << " " << std::endl;
@@ -53,7 +53,7 @@ int main()
 {
     // test_for_animal();
     // wrong_animals();
-    test_brain_animals();
+    // test_brain_animals();
 
     return 0;
 }

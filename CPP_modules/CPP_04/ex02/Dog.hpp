@@ -1,16 +1,17 @@
 #ifndef DOG_HPP
 #define DOG_HPP
 
-#include "Animals.h"
+#include "Animal.hpp"
+#include "Brain.hpp"
 
 class Dog : public Animal
 {
     public:
-        Dog ( void ) { this->_type = "Dog"; std::cout << "Dog constructor\n"; };
-        ~Dog ( void ) { delete _brain; std::cout << "Dog destructor\n"; };
-        void    makeSound( void ) const { std::cout << "Dog sound\n"; };
+        Dog( void );
+        ~Dog( void );
+        void makeSound( void ) const;
     private:
-        Brain   *_brain;
-} ;
+        Brain *_brain;
+};
 
 #endif
