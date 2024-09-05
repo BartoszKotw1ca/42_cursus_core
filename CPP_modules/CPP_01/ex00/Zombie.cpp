@@ -12,7 +12,7 @@ Zombie::Zombie( std::string name )
 
 Zombie::~Zombie( void )
 {
-    // Destructor
+    std::cout << "Destructor zombie: " << this->_name << std::endl;
 }
 
 void Zombie::announce ( void )
