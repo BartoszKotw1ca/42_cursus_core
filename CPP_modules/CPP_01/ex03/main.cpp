@@ -1,21 +1,23 @@
 #include <iostream>
-// #include "Weapon.hpp"
+#include "Weapon.hpp"
 #include "HumanA.hpp"
 #include "HumanB.hpp"
 
-// int main( void )
-// {
-//     Weapon tmp;
-//     std::cout << tmp.getType() << std::endl;
-//     tmp.setType("AMG");
-//     std::cout << tmp.getType() << std::endl;
-//     HumanA human("Bob", tmp);
-//     human.attack();
-//     std::cout << human.weapon.getType() << std::endl;
-//     human.weapon.setType("STS");
-//     std::cout << human.weapon.getType() << std::endl;
-//     human.attack();
-// }
+int test1( void )
+{
+    Weapon tmp;
+    std::cout << tmp.getType() << std::endl;
+    tmp.setType("AMG");
+    std::cout << tmp.getType() << std::endl;
+    HumanA human("Bob", tmp);
+    human.attack();
+    std::cout << human.weapon->getType() << std::endl;
+    human.weapon->setType("STS");
+    std::cout << human.weapon->getType() << std::endl;
+    human.attack();
+    return (0);
+}
+
 int main ( void )
 {
     {
@@ -35,4 +37,5 @@ int main ( void )
         club.setType("some other type of club");
         jim.attack();
     }
+    test1();
 }
