@@ -31,11 +31,20 @@ Bureaucrat :: ~Bureaucrat( void )
     << " destructor called!" << std::endl;
 }
 
-// Bureaucrat& Bureaucrat :: operator = ( const Bureaucrat &other)
-// {
-    // std::cout << "Bureaucrat copy consturctor called!" << std::endl;
-    // (void ) other;
-// }
+Bureaucrat& Bureaucrat :: operator = ( const Bureaucrat &other)
+{
+    std::cout << "Bureaucrat copy operator called!" << std::endl;
+    if (this != &other)
+    {
+        this->_grade = other._grade;
+    }
+    return *this;
+}
+
+Bureaucrat::Bureaucrat ( const Bureaucrat &other) : _grade(other._grade)
+{
+    std::cout << "Bureaucrat copy constructor called!!" << std::endl;
+}
 
 std::string    Bureaucrat :: getName ( void ) const
 {
