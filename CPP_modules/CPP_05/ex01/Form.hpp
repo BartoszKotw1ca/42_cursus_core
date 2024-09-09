@@ -1,15 +1,18 @@
 #ifndef FORM_HPP
 #define FORM_HPP
 
+class Form;
+
 #include "Bureaucrat.hpp"
+// #include "header.h"
 
 class Form
 {
 public:
     Form ( const std::string name, const int reqGrade, const int excGrade );
     ~Form ( void );
-    // Form& operator= ( const Form &other);
-    // Form ( const Form &other);
+    Form& operator= ( const Form &other);
+    Form ( const Form &other);
     class GradeTooHightException : public std::exception
     {
         public:
@@ -31,9 +34,9 @@ public:
     void    beSigned( Bureaucrat const & bureaucrat );
 private:
     const std::string _name;
-    bool    _isSigned;
     const int _reqGrade;
     const int _excGrade;
+    bool _isSigned;
 } ;
 
 std::ostream    &operator<<(std::ostream & out, const Form & form);

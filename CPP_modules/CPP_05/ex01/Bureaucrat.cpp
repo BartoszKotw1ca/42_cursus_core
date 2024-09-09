@@ -68,10 +68,14 @@ void    Bureaucrat :: decrement ( void )
         this->_grade += 1;
 }
 
-// void    Bureaucrat::signForm( Form &form)
-// {
-
-// }
+void    Bureaucrat::signForm( Form &form)
+{
+    if (form.getSigned() == 1)
+        std::cout << this->_name << " signed " << form.getName() << std::endl;
+    else
+        std::cout << this->_name << " couldn't sign " << form.getName()
+        << " because of the required grade" << std::endl;
+}
 
 std::ostream	&operator<<(std::ostream & out, const Bureaucrat & bureaucrat)
 {

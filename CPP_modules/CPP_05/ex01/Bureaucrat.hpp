@@ -1,12 +1,15 @@
 #ifndef BUREAUCRAT_HPP
 #define BUREAUCRAT_HPP
 
+// #include "header.h"
+
 #include <iostream>
 #include <string>
 #include <exception>
-// #include "Form.hpp"
 #define RED "\033[31m"
 #define OR "\033[0m"
+class Bureaucrat;
+#include "Form.hpp"
 
 class Bureaucrat
 {
@@ -37,7 +40,7 @@ class Bureaucrat
             private:
                 std::string _message;
         } ;
-        // void    signForm ( Form &form );
+        void    signForm ( Form &form );
     private:
         std::string const   _name;
         int                 _grade;

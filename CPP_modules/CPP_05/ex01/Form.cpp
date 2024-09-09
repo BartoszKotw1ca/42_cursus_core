@@ -23,6 +23,28 @@ Form :: ~Form ( void )
     std::cout << "Default form destructor." << std::endl;
 }
 
+Form& Form::operator= ( const Form &other)
+{
+    std::cout << "Form copy operator called!" << std::endl;
+    if (this != &other)
+    {
+        if (other.getReqGrade() <= 0 || other.getExcGrade() <= 0)
+            throw Form::GradeTooHightException();
+        else if (other.getReqGrade() > 150 || other.getExcGrade() > 150)
+            throw Form::GradeTooLowException();
+        // this->_name = other.getName();
+        this->_isSigned = other.getSigned();
+        // this->_excGrade = other.getExcGrade();
+        // this->_reqGrade = other.getReqGrade();
+    }
+    return (*this);
+}
+
+Form :: Form ( const Form &other ) : _name(other._name), _reqGrade(other._reqGrade), _excGrade(other._excGrade), _isSigned(other._isSigned)
+{
+    std::cout << "Bureaucrat copy constructor called!!" << std::endl;
+}
+
 std::string Form::getName( void ) const
 {
     return (this->_name);

@@ -1,6 +1,7 @@
 #include "Bureaucrat.hpp"
 #include "Form.hpp"
 
+
 void    TestForBureaucrat( void )
 {
     Bureaucrat tmp1("Janusz", 0);
@@ -70,4 +71,6 @@ int main ( void )
     tmp1.beSigned(btmp1);
     std::cout << "Signed: " << tmp1.getSigned() << std::endl;
 
+    btmp1.signForm(tmp1);
+    btmp1.signForm(tmp2);
 }
