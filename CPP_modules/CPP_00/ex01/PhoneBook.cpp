@@ -47,8 +47,12 @@ void	PhoneBook::add( void )
 	if (this->num_of_con >= 8)
 	{
 		std::cout << "The book is full, i have to delete oldest record!\n";
+        this->contacts[this->num_of_con % 8].first_name() = "";
+        this->contacts[this->num_of_con % 8].last_name() = "";
+        this->contacts[this->num_of_con % 8].nickname() = "";
+        this->contacts[this->num_of_con % 8].phone_num() = "";
+        this->contacts[this->num_of_con % 8].secret() = "";
 	}
-    std::cout << this->num_of_con % 8 << std::endl;
 	while (this->contacts[this->num_of_con % 8].first_name() == ""
         || this->contacts[this->num_of_con % 8].last_name() == ""
         || this->contacts[this->num_of_con % 8].nickname() == ""
