@@ -11,15 +11,6 @@ PresidentialPardonForm :: ~PresidentialPardonForm ( void )
     std::cout << "Presidential Pardon Form destructor !" << std::endl;
 }
 
-PresidentialPardonForm& PresidentialPardonForm :: operator= ( const PresidentialPardonForm & other)
-{
-    if (this != &other)
-    {
-        
-    }
-    return (*this);
-}
-
 void PresidentialPardonForm :: executee ( void ) const
 {
     std::cout << "Im the Presidential Pardon Form !!!" << std::endl;
