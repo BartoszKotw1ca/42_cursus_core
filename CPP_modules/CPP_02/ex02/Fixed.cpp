@@ -127,8 +127,9 @@ Fixed	Fixed::operator ++ ()
 // var++
 Fixed	Fixed::operator ++ (int)
 {
+    Fixed tmp = *this;
 	this->setRawBits(this->getRawBits() + 256);
-	return (*this);
+	return (tmp);
 }
 
 Fixed	Fixed::operator -- ()
@@ -139,8 +140,9 @@ Fixed	Fixed::operator -- ()
 
 Fixed	Fixed::operator -- (int)
 {
+    Fixed tmp = *this;
 	this->setRawBits(this->getRawBits() - 256);
-	return (*this);
+	return (tmp);
 }
 
 const Fixed	Fixed::min (const Fixed &f1, const Fixed &f2)
