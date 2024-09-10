@@ -29,6 +29,19 @@ ScavTrap& ScavTrap::operator = (const ScavTrap& other)
     return (*this);
 }
 
+void    ScavTrap::attack ( const std::string& target)
+{
+    if (this->_e_point > 0 && this->_health > 0)
+    {
+        this->_e_point --;
+        std::cout << "ScavTrap " << this->_name << " attacks "
+        << target << ", causing " << this->_att_damage
+        << " points of damage!" << std::endl;
+    }
+    else
+        print_no_points();
+}
+
 ScavTrap::~ScavTrap ( void )
 {
 	std::cout << "Destructor called(ScavTrap)" << std::endl;
