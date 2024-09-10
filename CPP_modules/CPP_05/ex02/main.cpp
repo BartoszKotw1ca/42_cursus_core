@@ -1,6 +1,8 @@
 #include "Bureaucrat.hpp"
-#include "Form.hpp"
-
+#include "AForm.hpp"
+#include "ShrubberyCreationForm.hpp"
+#include "RobotomyRequestForm.hpp"
+#include "PresidentialPardonForm.hpp"
 
 void    TestForBureaucrat( void )
 {
@@ -43,12 +45,12 @@ void    TestForBureaucrat( void )
     std::cout << tmp3;
 }
 
-void    FormTest( void )
+void    AFormTest( void )
 {
-    std::cout << GREEN << "----TEST FOR FORM!!!----\n" << OR << std::endl;
-    Form tmp1("Tmp1", 10, 50);
-    Form tmp2("Tmp2", 0, 20);
-    Form tmp3("Tmp3", 151, 151);
+    std::cout << GREEN << "----TEST FOR AFORM!!!----\n" << OR << std::endl;
+    AForm tmp1("Tmp1", 10, 50);
+    AForm tmp2("Tmp2", 0, 20);
+    AForm tmp3("Tmp3", 151, 151);
 
     std::cout << "Name: " << tmp1.getName() << std::endl;
     std::cout << "Name: " << tmp2.getName() << std::endl;
@@ -81,5 +83,15 @@ void    FormTest( void )
 int main ( void )
 {
     // TestForBureaucrat();
-    // FormTest();
+    // AFormTest();
+    ShrubberyCreationForm   tmp("Shrubber");
+    RobotomyRequestForm     tmp1("Robot");
+    PresidentialPardonForm  tmp2("President");
+
+    tmp.executee();
+    tmp1.executee();
+    tmp2.executee();
+
+    Bureaucrat      tmpb("Robert", 10);
+    tmpb.executeForm(tmp);
 }

@@ -9,8 +9,12 @@
 #define RED "\033[31m"
 #define OR "\033[0m"
 #define GREEN "\033[32m"
+#define YELLOW "\033[33m"
+#define BLUE "\033[34m"
+#define MAGENTA "\033[35m"
+#define CYAN "\033[36m"
 class Bureaucrat;
-#include "Form.hpp"
+#include "AForm.hpp"
 
 class Bureaucrat
 {
@@ -41,7 +45,8 @@ class Bureaucrat
             private:
                 std::string _message;
         } ;
-        void    signForm ( Form &form );
+        void    signForm ( AForm &form );
+        void    executeForm ( AForm const & form ) const;
     private:
         std::string const   _name;
         int                 _grade;
