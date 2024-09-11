@@ -3,6 +3,7 @@
 #include "ShrubberyCreationForm.hpp"
 #include "RobotomyRequestForm.hpp"
 #include "PresidentialPardonForm.hpp"
+#include "Intern.hpp"
 
 void    TestForBureaucrat( void )
 {
@@ -80,10 +81,8 @@ void    AFormTest( void )
     btmp1.signForm(tmp2);
 }
 
-int main ( void )
+void    test_ex02(void)
 {
-    // TestForBureaucrat();
-    // AFormTest();
     ShrubberyCreationForm   tmp("Shrubber");
     RobotomyRequestForm     tmp1("Robot");
     PresidentialPardonForm  tmp2("President");
@@ -94,4 +93,22 @@ int main ( void )
 
     Bureaucrat      tmpb("Robert", 10);
     tmpb.executeForm(tmp);
+}
+
+int main ( void )
+{
+    // TestForBureaucrat();
+    // AFormTest();
+    // test_ex02();
+    Intern tmp;
+    AForm *tmp1;
+
+    tmp1 = tmp.makeForm("ShrubberyCreationForm", "tmp1");
+    delete tmp1;
+    tmp1 = tmp.makeForm("PresidentialPardonForm", "tmp2");
+    delete tmp1;
+    tmp1 = tmp.makeForm("RobotomyRequestForm", "tmp3");
+    delete tmp1;
+    tmp.makeForm("NieIstniejacaForma", "tmp4");
+
 }
