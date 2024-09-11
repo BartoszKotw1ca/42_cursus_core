@@ -38,6 +38,20 @@ ShrubberyCreationForm :: ShrubberyCreationForm ( const std::string target ) : AF
     }
 }
 
+ShrubberyCreationForm & ShrubberyCreationForm :: operator= ( const ShrubberyCreationForm & other)
+{
+    if (this != &other)
+    {
+        AForm::operator=(other);
+    }
+    return (*this);
+}
+
+ShrubberyCreationForm :: ShrubberyCreationForm ( const ShrubberyCreationForm & other) : AForm(other)
+{
+    return ;
+}
+
 ShrubberyCreationForm :: ~ShrubberyCreationForm ( void )
 {
     std::cout << "ShrubberyCreationForm dexonsturctr!" << std::endl;

@@ -13,6 +13,20 @@ RobotomyRequestForm :: RobotomyRequestForm ( std::string target) : AForm ( "name
 
 }
 
+RobotomyRequestForm& RobotomyRequestForm :: operator= ( const RobotomyRequestForm & other)
+{
+    if (this != &other)
+    {
+        AForm::operator=(other);
+    }
+    return (*this);
+}
+
+RobotomyRequestForm :: RobotomyRequestForm ( const RobotomyRequestForm & other) : AForm(other)
+{
+    return ;
+}
+
 RobotomyRequestForm :: ~RobotomyRequestForm ( void )
 {
     std::cout << "RobotomyRequestForm destructor!" << std::endl;

@@ -15,9 +15,14 @@ PresidentialPardonForm& PresidentialPardonForm :: operator= ( const Presidential
 {
     if (this != &other)
     {
-        
+        AForm::operator=(other);
     }
     return (*this);
+}
+
+PresidentialPardonForm :: PresidentialPardonForm ( const PresidentialPardonForm & other) : AForm(other)
+{
+    return ;
 }
 
 void PresidentialPardonForm :: executee ( void ) const
