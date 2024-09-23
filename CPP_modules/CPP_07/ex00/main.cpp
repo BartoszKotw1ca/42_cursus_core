@@ -108,6 +108,6 @@ int main(void)
 
     // test_for_min();
     // test_for_max();
-    // test_from_subject(void);
+    test_from_subject();
     return 0;
 }
