@@ -19,10 +19,14 @@
 int main(void)
 {
     Data *tmp = new Data;
-    uintptr_t serialized = Serializer::serialize(tmp);
+    uintptr_t   serialized;
+
+    std::cout << "Adress tmp: "<< tmp << std::endl;
+    serialized = Serializer::serialize(tmp);
+    std::cout << "Serialized: " << serialized << std::endl;
 
     Data *deserialized = Serializer::deserialize(serialized);
-    std::cout << deserialized->tmp3 << std::endl;
+    std::cout << "Deserialized: " << deserialized << std::endl;
 
     delete tmp;
 }
