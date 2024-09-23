@@ -1,10 +1,5 @@
 #include "iter.hpp"
 
-void print(int &x)
-{
-    std::cout << x << std::endl;
-}
-
 void add_one(int &x)
 {
     x += 1;
