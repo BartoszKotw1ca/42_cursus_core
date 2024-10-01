@@ -55,6 +55,8 @@ int Span::longestSpan( void )
     return std::abs(s_span);
 }
 
+// *std::max_element(this->_array.begin(), this->_array.end());
+// *std::min_element(this->_array.begin(), this->_array.end());
 int Span::shortestSpan( void )
 {
     int s_span;
