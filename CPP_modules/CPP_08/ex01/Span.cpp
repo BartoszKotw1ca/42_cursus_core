@@ -84,3 +84,17 @@ void    Span::add_more_num( unsigned int size )
         this->addNumber(tmp1);
     }
 }
+
+Span::Span(const Span& other) {
+    this->_numbers = other._numbers;
+    this->_v_size = other._v_size;
+}
+
+// Copy assignment operator
+Span& Span::operator=(const Span& other) {
+    if (this != &other) {
+        this->_v_size = other._v_size;
+        this->_numbers = other._numbers;
+    }
+    return *this;
+}

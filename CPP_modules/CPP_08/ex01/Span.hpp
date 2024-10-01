@@ -10,8 +10,8 @@ class Span
     public:
         Span ( unsigned int N );
         ~Span ( void );
-        // Span ( const Span & other );
-        // Span & operator = ( const Span & other );
+        Span ( const Span & other );
+        Span & operator = ( const Span & other );
         void addNumber( int number );
         int shortestSpan ( void );
         int longestSpan( void );
