@@ -69,25 +69,25 @@ int RPN :: algorithm ( void )
         {
             write_a_b();
             _stack.push(_a + _b);
-            std::cout << "Dodawanie: " << _stack.top() << std::endl;
+            // std::cout << "Dodawanie: " << _stack.top() << std::endl;
         }
         else if ( a == 42 ) // *
         {
             write_a_b();
             _stack.push(_a * _b);
-            std::cout << "Mnozenie: " << _stack.top() << std::endl;
+            // std::cout << "Mnozenie: " << _stack.top() << std::endl;
         }
         else if ( a == 45 ) // -
         {
             write_a_b();
             _stack.push(_b - _a);
-            std::cout << "Odejmowanie: " << _stack.top() << std::endl;
+            // std::cout << "Odejmowanie: " << _stack.top() << std::endl;
         }
         else if ( a == 47 ) // /
         {
             write_a_b();
             _stack.push(_b / _a);
-            std::cout << "Dzielenie: " << _stack.top() << std::endl;
+            // std::cout << "Dzielenie: " << _stack.top() << std::endl;
         }
     }
     if (this->_err_val == 1)
