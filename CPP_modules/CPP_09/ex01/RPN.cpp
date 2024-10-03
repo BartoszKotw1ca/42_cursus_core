@@ -34,73 +34,67 @@ int RPN :: check_input ( char* input, int ac )
     return (0);
 }
 
+void RPN :: write_a_b ( void )
+{
+    if (_stack.empty())
+    {
+        std::cout << "Error" << std::endl;
+        this->_err_val = 1;
+        return ;
+    }
+    this->_a = _stack.top();
+    _stack.pop();
+
+    if (_stack.empty())
+    {
+        std::cout << "Error" << std::endl;
+        this->_err_val = 1;
+        return ;
+    }
+    this->_b = _stack.top();
+    _stack.pop();
+}
+
 int RPN :: algorithm ( void )
 {
-    int res = 0;
-    int if_first = 0;
+    this->_err_val = 0;
     for (unsigned int i = 0; i < _values.length(); i ++)
     {
+        if (this->_err_val == 1)
+            break;
         int a = static_cast<char> (_values[i]);
         if (std::isdigit( a ))
             this->_stack.push(a - '0');
         else if ( a == 43 )  // +
         {
-            while (!_stack.empty())
-            {
-                res += _stack.top();
-                _stack.pop();
-            }
-            if_first += 1;
-            std::cout << "Dodawanie: " << res << std::endl;
+            write_a_b();
+            _stack.push(_a + _b);
+            std::cout << "Dodawanie: " << _stack.top() << std::endl;
         }
         else if ( a == 42 ) // *
         {
-            int tmp_res = 1;
-            while (!_stack.empty())
-            {
-                tmp_res *= _stack.top();
-                _stack.pop();
-            }
-            (res += (if_first == 0) ? 1 : 0) *= tmp_res;
-            std::cout << "Mnozenie: " << res << std::endl;
-            if_first += 1;
+            write_a_b();
+            _stack.push(_a * _b);
+            std::cout << "Mnozenie: " << _stack.top() << std::endl;
         }
         else if ( a == 45 ) // -
         {
-            if (!_stack.empty())
-            {
-                res = _stack.top();
-                _stack.pop();
-            }
-            while (!_stack.empty())
-            {
-                res -= _stack.top();
-                _stack.pop();
-            }
-            std::cout << "Odejmowanie: " << res << std::endl;
-            if_first += 1;
+            write_a_b();
+            _stack.push(_b - _a);
+            std::cout << "Odejmowanie: " << _stack.top() << std::endl;
         }
         else if ( a == 47 ) // /
         {
-            while (!_stack.empty())
-            {
-                res /= _stack.top();
-                _stack.pop();
-            }
-            std::cout << "Dzielenie: " << res << std::endl;
-            if_first += 1;
+            write_a_b();
+            _stack.push(_b / _a);
+            std::cout << "Dzielenie: " << _stack.top() << std::endl;
         }
-        // std::cout << a << std::endl;
-        // std::cout << _values[i] << std::endl;
     }
-    
-    // char b = _stack.top();
-    // std::cout << std::endl;
-    while (!_stack.empty()) {
-        std::cout << _stack.top() <<" ";
-        _stack.pop();
-    }
-    // std::cout << b << std::endl;
-    std::cout << res << std::endl;
+    if (this->_err_val == 1)
+        return (1);
+    if(!_stack.empty())
+        std::cout << _stack.top() << std::endl;
+    else
+        std::cout << "Error" << std::endl;
     return (0);
 }
