@@ -24,11 +24,17 @@ int main()
     lst.push_front(0);
 
     PmergeMe<std::vector<int> > tmp_vector;
-    PmergeMe<std::list<int> > tmp_list;
     PmergeMe<std::deque<int> > tmp_deq;
     std::vector<int> t;
     // Tests
+
+    std::cout << "Tes" << std::endl;
+
     tmp_vector.easy_test();
     tmp_vector.random_test(100);
+
+    tmp_deq.easy_test();
+    tmp_deq.random_test(100);
+
     return 0;
 }
