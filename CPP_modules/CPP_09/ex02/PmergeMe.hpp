@@ -18,10 +18,9 @@ class PmergeMe
 {
     public:
         PmergeMe( );
-        PmergeMe( T & arr);
-        // ~PmergeMe ( void );
-        // PmergeMe & operator = (const PmergeMe & other );
-        // PmergeMe ( const PmergeMe & other );
+        ~PmergeMe ( void );
+        PmergeMe & operator = (const PmergeMe & other );
+        PmergeMe ( const PmergeMe & other );
     
         void printVector(const T& arr);
         void mergeInsertionSort(T& arr);
@@ -30,8 +29,6 @@ class PmergeMe
         void random_test(int en);
         void easy_test(void);
         void print_info(long unsigned int size, std::string what, float time);
-    private:
-        T _lista;
 } ;
 
 template <typename T>
@@ -40,8 +37,23 @@ PmergeMe<T> :: PmergeMe ( void )
 }
 
 template <typename T>
-PmergeMe<T> :: PmergeMe  ( T & arr ) : _lista(arr) 
+PmergeMe<T> :: ~PmergeMe ( void )
 {}
+
+template <typename T>
+PmergeMe<T> :: PmergeMe ( const PmergeMe & other )
+{
+    (void) other;
+    return ;
+}
+
+template <typename T>
+PmergeMe<T> & PmergeMe<T> :: operator = ( const PmergeMe & other )
+{
+    (void) other;
+    return *this;
+}
+
 
 template <typename T>
 void PmergeMe<T> :: printVector(const T& arr)
@@ -52,13 +64,11 @@ void PmergeMe<T> :: printVector(const T& arr)
 }
 
 template <typename T>
-// Funkcja do rekurencyjnego sortowania większych elementów
 void PmergeMe<T> :: mergeInsertionSort(T& arr)
 {
     int n = arr.size();
     if (n <= 1)
-        return;  // Warunek zakończenia rekurencji
-    // Podział na mniejsze i większe elementy
+        return;
     T largerElements, smallerElements;
     for (int i = 0; i < n / 2; ++i) {
         if (arr[2 * i] > arr[2 * i + 1]) {
@@ -69,18 +79,14 @@ void PmergeMe<T> :: mergeInsertionSort(T& arr)
             smallerElements.push_back(arr[2 * i]);
         }
     }
-    // Jeśli liczba elementów jest nieparzysta, dodaj ostatni element do smallerElements
     if (n % 2 != 0)
         smallerElements.push_back(arr.back());
-    // Rekurencyjne sortowanie obu wektorów
     mergeInsertionSort(smallerElements);
     mergeInsertionSort(largerElements);
-    // Scalenie posortowanych elementów
     T sortedSequence;
     std::merge(smallerElements.begin(), smallerElements.end(),
                largerElements.begin(), largerElements.end(),
                std::back_inserter(sortedSequence));
-    // Przepisanie wyników do oryginalnej tablicy
     arr = sortedSequence;
 }
 
