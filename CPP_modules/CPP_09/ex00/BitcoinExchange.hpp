@@ -6,6 +6,7 @@
 #include <vector>
 #include <iostream>
 #include <cstdlib>
+#include <list>
 
 class BitcoinExchange
 {
@@ -19,6 +20,6 @@ class BitcoinExchange
         void print_data( int a );
         void print_info( void );
     private:
-        std::vector<std::vector<std::string> > _infile_vec;
-        std::vector<std::vector<std::string> > _data_vec;
+        std::list<std::list<std::string> > _infile_list;
+        std::list<std::list<std::string> > _data_list;
 } ;
