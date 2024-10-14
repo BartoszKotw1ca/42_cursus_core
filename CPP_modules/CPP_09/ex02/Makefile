@@ -1,14 +1,13 @@
 NAME = PmergeMe
 SRC = main.cpp PmergeMe.cpp
-# OBJ = $(SRC:.cpp=.o)
-FLAGS =  -g
+FLAGS = -g -Wall -Wextra -Werror -std=c++98
 COMPILER = g++
 
 $(NAME): $(OBJ)
 	@$(COMPILER) $(FLAGS) $(SRC) -o $(NAME)
 
 all: $(NAME)
-	./PmergeMe "1, 2, 3, 4, 12, 43"
+	./PmergeMe
 	@echo
 
 clean:

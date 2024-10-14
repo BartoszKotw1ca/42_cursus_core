@@ -20,7 +20,7 @@ PmergeMe & PmergeMe :: operator = ( const PmergeMe & other )
 
 void PmergeMe :: sort ( void )
 {
-clock_t start = clock();
+    clock_t start = clock();
 	
 	std::deque<int>::iterator	it = this->_deque.begin();
 	std::deque<int>::iterator	ite = this->_deque.end();
