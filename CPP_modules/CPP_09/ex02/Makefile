@@ -15,7 +15,7 @@ test:
 	./PmergeMe 2 3 4 "3" 1
 
 all: $(NAME)
-	-./PmergeMe 'shuf -i 1-1000000 -n 30 | tr "\n" " "'
+	-./PmergeMe `shuf -i 1-1000000 -n 10000 | tr "\n" " "`
 	@echo
 
 clean:
