@@ -1,5 +1,5 @@
 NAME = PmergeMe
-SRC = main.cpp PmergeMe.cpp
+SRC = PmergeMe.cpp main.cpp
 FLAGS = -g -Wall -Wextra -Werror -std=c++98
 COMPILER = g++
 
