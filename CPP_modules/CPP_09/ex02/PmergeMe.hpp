@@ -18,6 +18,7 @@ class PmergeMe
 {
     public:
         PmergeMe( );
+        PmergeMe( T & arr);
         // ~PmergeMe ( void );
         // PmergeMe & operator = (const PmergeMe & other );
         // PmergeMe ( const PmergeMe & other );
@@ -28,12 +29,19 @@ class PmergeMe
         int check_if_sorted(T arr, int check_box);
         void random_test(int en);
         void easy_test(void);
+        void print_info(long unsigned int size, std::string what, float time);
+    private:
+        T _lista;
 } ;
 
 template <typename T>
 PmergeMe<T> :: PmergeMe ( void )
 {
 }
+
+template <typename T>
+PmergeMe<T> :: PmergeMe  ( T & arr ) : _lista(arr) 
+{}
 
 template <typename T>
 void PmergeMe<T> :: printVector(const T& arr)
@@ -138,4 +146,11 @@ void PmergeMe<T> :: easy_test(void)
             this->mergeInsertionSort(arr);
         std::cout << (check_if_sorted(arr, 1)==1 ? "✅" : "❌") << std::endl;
     }
+}
+
+template<typename T>
+void PmergeMe<T> :: print_info( long unsigned int size, std::string what, float time )
+{
+    std::cout << "Time to process a range of " << size << " elements with "
+    << what << " : " << time << " us" << std::endl;
 }

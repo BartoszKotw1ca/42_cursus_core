@@ -6,8 +6,16 @@ COMPILER = g++
 $(NAME): $(OBJ)
 	@$(COMPILER) $(FLAGS) $(SRC) -o $(NAME)
 
+test:
+	# Test for sorted == Error
+	-./PmergeMe 1 2 3 4
+	# Test for only one arg == Error
+	-./PmergeMe
+	# Test for 2 same values == Error
+	./PmergeMe 2 3 4 "3" 1
+
 all: $(NAME)
-	./PmergeMe
+	-./PmergeMe 'shuf -i 1-1000000 -n 30 | tr "\n" " "'
 	@echo
 
 clean:
